@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- jsPDF for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- SheetJS for CSV export -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.19.2/package/dist/xlsx.full.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -530,7 +534,7 @@
             }
         }
 
-        /* Task Input with Neon Effect */
+        /* Task Input with Enhanced Options */
         .task-input-container {
             background: #f7fafc;
             padding: 20px;
@@ -551,6 +555,7 @@
             display: flex;
             gap: 15px;
             align-items: center;
+            margin-bottom: 15px;
         }
 
         .task-input-wrapper input {
@@ -592,15 +597,16 @@
             color: #050801;
         }
 
+        /* Enhanced Task Options */
         .task-options {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 15px;
             margin-top: 15px;
         }
 
         .task-option {
-            flex: 1;
-            padding: 10px;
+            padding: 12px;
             background: white;
             border: 1px solid #e2e8f0;
             border-radius: 12px;
@@ -610,16 +616,215 @@
             color: #718096;
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .task-option:hover {
             border-color: #03e9f4;
             box-shadow: 0 0 10px #03e9f4;
             color: #03e9f4;
+            transform: translateY(-2px);
         }
 
         .task-option i {
             color: #667eea;
+            font-size: 16px;
+        }
+
+        .task-option.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: transparent;
+        }
+
+        .task-option.active i {
+            color: white;
+        }
+
+        /* Date Picker */
+        .date-picker {
+            grid-column: span 2;
+            padding: 12px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #718096;
+        }
+
+        .date-picker input {
+            border: none;
+            outline: none;
+            background: transparent;
+            color: #4a5568;
+            font-family: 'Inter', sans-serif;
+            flex: 1;
+        }
+
+        .date-picker i {
+            color: #667eea;
+        }
+
+        /* Export Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .modal-header h2 {
+            color: #2d3748;
+            font-size: 24px;
+        }
+
+        .close-modal {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            color: #718096;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background: #f56565;
+            color: white;
+            border-color: transparent;
+        }
+
+        .export-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .export-option {
+            padding: 30px 20px;
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .export-option:hover {
+            border-color: #03e9f4;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(3, 233, 244, 0.3);
+        }
+
+        .export-option i {
+            font-size: 40px;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .export-option h3 {
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .export-option p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        .export-preview {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .export-preview h4 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .preview-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .preview-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+        }
+
+        .preview-item:last-child {
+            border-bottom: none;
+        }
+
+        .preview-item span:first-child {
+            color: #2d3748;
+            font-weight: 500;
+        }
+
+        .preview-item span:last-child {
+            color: #718096;
+        }
+
+        /* Priority Colors */
+        .priority-high {
+            color: #fc8181;
+        }
+        .priority-medium {
+            color: #f6ad55;
+        }
+        .priority-low {
+            color: #68d391;
         }
 
         /* Filters */
@@ -677,11 +882,15 @@
             color: #718096;
             cursor: pointer;
             transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 30px;
+            border: 1px solid #e2e8f0;
         }
 
         .sort-options:hover {
             color: #03e9f4;
-            text-shadow: 0 0 10px #03e9f4;
+            border-color: #03e9f4;
+            box-shadow: 0 0 10px #03e9f4;
         }
 
         /* Task List */
@@ -761,24 +970,21 @@
             gap: 15px;
             font-size: 12px;
             color: #718096;
+            flex-wrap: wrap;
         }
 
         .task-meta span {
             display: flex;
             align-items: center;
             gap: 4px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            background: white;
         }
 
-        .priority-high {
-            color: #fc8181;
-        }
-
-        .priority-medium {
-            color: #f6ad55;
-        }
-
-        .priority-low {
-            color: #68d391;
+        .task-meta .overdue {
+            background: #fed7d7;
+            color: #c53030;
         }
 
         .task-actions {
@@ -809,6 +1015,7 @@
             display: flex;
             gap: 8px;
             margin-top: 8px;
+            flex-wrap: wrap;
         }
 
         .tag {
@@ -822,7 +1029,8 @@
         }
 
         .tag:hover {
-            box-shadow: 0 0 10px currentColor;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
         }
 
         .tag.work {
@@ -840,7 +1048,22 @@
             color: #c53030;
         }
 
-        /* Quick Actions with Neon Effect */
+        .tag.high {
+            background: #fed7d7;
+            color: #c53030;
+        }
+
+        .tag.medium {
+            background: #feebc8;
+            color: #dd6b20;
+        }
+
+        .tag.low {
+            background: #c6f6d5;
+            color: #2f855a;
+        }
+
+        /* Quick Actions */
         .quick-actions {
             display: flex;
             gap: 10px;
@@ -922,6 +1145,10 @@
             .stats-container {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
+            .task-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
@@ -941,6 +1168,14 @@
             
             .neon-buttons-container {
                 flex-direction: column;
+            }
+            
+            .task-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .export-options {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -1107,7 +1342,7 @@
                 </div>
             </div>
 
-            <!-- Task Input -->
+            <!-- Enhanced Task Input with Priority and Date -->
             <div class="task-input-container">
                 <div class="task-input-wrapper">
                     <input type="text" id="taskInput" placeholder="What needs to be done?" autocomplete="off">
@@ -1116,22 +1351,37 @@
                         Add Task
                     </button>
                 </div>
+                
+                <!-- Enhanced Task Options with Priority and Date -->
                 <div class="task-options">
-                    <div class="task-option" onclick="setPriority('high')">
+                    <!-- Priority Options -->
+                    <div class="task-option" id="priorityHigh" onclick="setPriority('high')">
                         <i class="fas fa-flag"></i>
                         <span>High Priority</span>
                     </div>
-                    <div class="task-option" onclick="setPriority('medium')">
+                    <div class="task-option active" id="priorityMedium" onclick="setPriority('medium')">
                         <i class="fas fa-flag"></i>
                         <span>Medium Priority</span>
                     </div>
-                    <div class="task-option" onclick="setPriority('low')">
+                    <div class="task-option" id="priorityLow" onclick="setPriority('low')">
                         <i class="fas fa-flag"></i>
                         <span>Low Priority</span>
                     </div>
-                    <div class="task-option" onclick="setCategory('work')">
+                    
+                    <!-- Category Options -->
+                    <div class="task-option" id="categoryWork" onclick="setCategory('work')">
                         <i class="fas fa-briefcase"></i>
                         <span>Work</span>
+                    </div>
+                    <div class="task-option active" id="categoryPersonal" onclick="setCategory('personal')">
+                        <i class="fas fa-home"></i>
+                        <span>Personal</span>
+                    </div>
+                    
+                    <!-- Date Picker -->
+                    <div class="date-picker">
+                        <i class="far fa-calendar-alt"></i>
+                        <input type="date" id="taskDueDate" value="<?php echo date('Y-m-d'); ?>">
                     </div>
                 </div>
             </div>
@@ -1143,14 +1393,15 @@
                 <button class="filter-btn" onclick="filterTasks('pending')">Pending</button>
                 <button class="filter-btn" onclick="filterTasks('completed')">Completed</button>
                 <button class="filter-btn" onclick="filterTasks('high')">High Priority</button>
+                <button class="filter-btn" onclick="filterTasks('overdue')">Overdue</button>
             </div>
 
             <!-- Tasks Header -->
             <div class="tasks-header">
                 <h2>My Tasks <span id="taskCount" style="color: #718096; font-size: 14px;">(0 tasks)</span></h2>
                 <div class="sort-options" onclick="sortTasks()">
-                    <i class="fas fa-sort-amount-down"></i>
-                    <span>Sort by: Date</span>
+                    <i class="fas fa-sort-amount-down" id="sortIcon"></i>
+                    <span id="sortText">Sort by: Date</span>
                 </div>
             </div>
 
@@ -1159,7 +1410,7 @@
                 <!-- Tasks will be dynamically added here -->
             </div>
 
-            <!-- Quick Actions -->
+            <!-- Quick Actions with Export -->
             <div class="quick-actions">
                 <div class="quick-action" onclick="showSmartSchedule()">
                     <i class="fas fa-magic"></i>
@@ -1173,10 +1424,51 @@
                     <i class="fas fa-trash"></i>
                     <span>Clear Completed</span>
                 </div>
-                <div class="quick-action" onclick="exportTasks()">
+                <div class="quick-action" onclick="openExportModal()">
                     <i class="fas fa-download"></i>
                     <span>Export Tasks</span>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Modal -->
+    <div class="modal" id="exportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Export Tasks</h2>
+                <button class="close-modal" onclick="closeExportModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="export-options">
+                <div class="export-option" onclick="exportToCSV()">
+                    <i class="fas fa-file-csv"></i>
+                    <h3>CSV Format</h3>
+                    <p>Export to Excel/Sheets compatible format</p>
+                </div>
+                <div class="export-option" onclick="exportToPDF()">
+                    <i class="fas fa-file-pdf"></i>
+                    <h3>PDF Format</h3>
+                    <p>Export to printable PDF document</p>
+                </div>
+            </div>
+            
+            <div class="export-preview">
+                <h4>Preview of tasks to export:</h4>
+                <div class="preview-list" id="exportPreview">
+                    <!-- Preview items will be dynamically added here -->
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="add-task-btn" style="flex: 1;" onclick="exportToCSV()">
+                    <i class="fas fa-file-csv"></i> Export as CSV
+                </button>
+                <button class="add-task-btn" style="flex: 1;" onclick="exportToPDF()">
+                    <i class="fas fa-file-pdf"></i> Export as PDF
+                </button>
             </div>
         </div>
     </div>
@@ -1210,7 +1502,7 @@
 
         // ==================== TASKS MANAGEMENT ====================
         
-        // Load tasks from localStorage (no fake data!)
+        // Load tasks from localStorage
         let tasks = JSON.parse(localStorage.getItem(`flowtask_tasks_${currentUser}`)) || [];
         
         // Save tasks helper
@@ -1218,6 +1510,35 @@
             localStorage.setItem(`flowtask_tasks_${currentUser}`, JSON.stringify(tasks));
             updateStats();
             renderTasks();
+        }
+
+        // ==================== TASK OPTIONS STATE ====================
+        
+        let selectedPriority = 'medium';
+        let selectedCategory = 'personal';
+        
+        function setPriority(priority) {
+            selectedPriority = priority;
+            
+            // Update UI
+            document.querySelectorAll('[id^="priority"]').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.getElementById(`priority${priority.charAt(0).toUpperCase() + priority.slice(1)}`).classList.add('active');
+            
+            showNotification(`Priority set to: ${priority}`, 'info');
+        }
+        
+        function setCategory(category) {
+            selectedCategory = category;
+            
+            // Update UI
+            document.querySelectorAll('[id^="category"]').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.getElementById(`category${category.charAt(0).toUpperCase() + category.slice(1)}`).classList.add('active');
+            
+            showNotification(`Category set to: ${category}`, 'info');
         }
 
         // ==================== UI UPDATE FUNCTIONS ====================
@@ -1231,6 +1552,9 @@
             const today = new Date().toISOString().split('T')[0];
             const overdue = tasks.filter(t => !t.completed && t.dueDate < today).length;
             
+            // Count today's tasks
+            const todayTasks = tasks.filter(t => t.dueDate === today).length;
+            
             // Update stat cards
             document.getElementById("totalTasks").innerText = total;
             document.getElementById("completedTasks").innerText = completed;
@@ -1239,6 +1563,7 @@
             
             // Update badges
             document.getElementById("totalTasksBadge").innerText = total;
+            document.getElementById("todayTasksBadge").innerText = todayTasks;
             document.getElementById("notificationBadge").innerText = overdue;
             
             // Update progress
@@ -1280,6 +1605,9 @@
 
         // Create task element
         function createTaskElement(task) {
+            const today = new Date().toISOString().split('T')[0];
+            const isOverdue = !task.completed && task.dueDate < today;
+            
             const div = document.createElement('div');
             div.className = 'task-item';
             div.innerHTML = `
@@ -1289,12 +1617,21 @@
                 <div class="task-content">
                     <div class="task-title ${task.completed ? 'completed' : ''}">${task.title}</div>
                     <div class="task-meta">
-                        <span><i class="far fa-clock"></i> Due: ${task.dueDate}</span>
-                        <span class="priority-${task.priority}"><i class="fas fa-flag"></i> ${task.priority}</span>
-                        <span><i class="far fa-user"></i> ${task.assignedTo}</span>
+                        <span class="${isOverdue ? 'overdue' : ''}">
+                            <i class="far fa-calendar-alt"></i> 
+                            Due: ${formatDate(task.dueDate)}
+                            ${isOverdue ? ' (Overdue)' : ''}
+                        </span>
+                        <span class="priority-${task.priority}">
+                            <i class="fas fa-flag"></i> ${task.priority}
+                        </span>
+                        <span>
+                            <i class="far fa-user"></i> ${task.assignedTo}
+                        </span>
                     </div>
                     <div class="task-tags">
                         <span class="tag ${task.category}">${task.category}</span>
+                        <span class="tag ${task.priority}">${task.priority}</span>
                         ${task.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                     </div>
                 </div>
@@ -1313,12 +1650,18 @@
             return div;
         }
 
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
         // ==================== TASK OPERATIONS ====================
         
-        // Add new task
+        // Add new task with priority and date
         function addTask() {
             const input = document.getElementById('taskInput');
             const title = input.value.trim();
+            const dueDate = document.getElementById('taskDueDate').value;
 
             if (!title) {
                 showNotification('Please enter a task title!', 'warning');
@@ -1329,10 +1672,10 @@
                 id: Date.now(),
                 title: title,
                 completed: false,
-                priority: selectedPriority || 'medium',
-                category: selectedCategory || 'personal',
-                dueDate: new Date().toISOString().split('T')[0],
-                tags: [selectedPriority || 'medium'],
+                priority: selectedPriority,
+                category: selectedCategory,
+                dueDate: dueDate,
+                tags: [selectedPriority, selectedCategory],
                 assignedTo: currentUser,
                 createdAt: new Date().toISOString()
             };
@@ -1341,9 +1684,10 @@
             saveTasks();
             input.value = '';
             
-            // Reset selections
-            selectedPriority = 'medium';
-            selectedCategory = 'personal';
+            // Reset to tomorrow's date
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('taskDueDate').value = tomorrow.toISOString().split('T')[0];
             
             showNotification('Task added successfully! 🎉', 'success');
         }
@@ -1373,14 +1717,16 @@
             }
             
             if (title && title.trim()) {
+                const dueDate = document.getElementById('taskDueDate').value;
+                
                 const newTask = {
                     id: Date.now(),
                     title: title.trim(),
                     completed: false,
                     priority: priority,
                     category: category === 'urgent' ? 'work' : category,
-                    dueDate: new Date().toISOString().split('T')[0],
-                    tags: [category],
+                    dueDate: dueDate,
+                    tags: [category, priority],
                     assignedTo: currentUser,
                     createdAt: new Date().toISOString()
                 };
@@ -1460,7 +1806,8 @@
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if (btn.textContent.toLowerCase().includes(filter) || 
-                    (filter === 'high' && btn.textContent.includes('High'))) {
+                    (filter === 'high' && btn.textContent.includes('High')) ||
+                    (filter === 'overdue' && btn.textContent.includes('Overdue'))) {
                     btn.classList.add('active');
                 }
             });
@@ -1484,6 +1831,9 @@
                 case 'high':
                     filtered = tasks.filter(t => t.priority === 'high');
                     break;
+                case 'overdue':
+                    filtered = tasks.filter(t => !t.completed && t.dueDate < today);
+                    break;
                 default:
                     filtered = tasks;
             }
@@ -1493,37 +1843,41 @@
         }
 
         let sortAscending = true;
+        let sortBy = 'date'; // date, priority, title
         
         function sortTasks() {
             sortAscending = !sortAscending;
-            const sortIcon = document.querySelector('.sort-options i');
+            const sortIcon = document.getElementById('sortIcon');
             sortIcon.className = sortAscending ? 'fas fa-sort-amount-down' : 'fas fa-sort-amount-up';
             
             tasks.sort((a, b) => {
-                if (sortAscending) {
-                    return new Date(a.dueDate) - new Date(b.dueDate);
+                if (sortBy === 'date') {
+                    return sortAscending 
+                        ? new Date(a.dueDate) - new Date(b.dueDate)
+                        : new Date(b.dueDate) - new Date(a.dueDate);
+                } else if (sortBy === 'priority') {
+                    const priorityWeight = { high: 3, medium: 2, low: 1 };
+                    return sortAscending
+                        ? priorityWeight[b.priority] - priorityWeight[a.priority]
+                        : priorityWeight[a.priority] - priorityWeight[b.priority];
                 } else {
-                    return new Date(b.dueDate) - new Date(a.dueDate);
+                    return sortAscending
+                        ? a.title.localeCompare(b.title)
+                        : b.title.localeCompare(a.title);
                 }
             });
             
+            // Cycle through sort options
+            if (!sortAscending) {
+                if (sortBy === 'date') sortBy = 'priority';
+                else if (sortBy === 'priority') sortBy = 'title';
+                else sortBy = 'date';
+            }
+            
+            document.getElementById('sortText').innerText = `Sort by: ${sortBy.charAt(0).toUpperCase() + sortBy.slice(1)}`;
+            
             renderTasks();
-            showNotification(`Sorted by date ${sortAscending ? '↑' : '↓'}`, 'info');
-        }
-
-        // ==================== TASK OPTIONS ====================
-        
-        let selectedPriority = 'medium';
-        let selectedCategory = 'personal';
-        
-        function setPriority(priority) {
-            selectedPriority = priority;
-            showNotification(`Priority set to: ${priority}`, 'info');
-        }
-        
-        function setCategory(category) {
-            selectedCategory = category;
-            showNotification(`Category set to: ${category}`, 'info');
+            showNotification(`Sorted by ${sortBy} ${sortAscending ? '↑' : '↓'}`, 'info');
         }
 
         // ==================== SEARCH ====================
@@ -1536,11 +1890,144 @@
                 const filtered = tasks.filter(task => 
                     task.title.toLowerCase().includes(searchTerm) ||
                     task.category.toLowerCase().includes(searchTerm) ||
-                    task.priority.toLowerCase().includes(searchTerm)
+                    task.priority.toLowerCase().includes(searchTerm) ||
+                    task.tags.some(tag => tag.toLowerCase().includes(searchTerm))
                 );
                 renderTasks(filtered);
             }
         });
+
+        // ==================== EXPORT FUNCTIONALITY ====================
+        
+        function openExportModal() {
+            const modal = document.getElementById('exportModal');
+            modal.classList.add('active');
+            
+            // Update preview
+            const previewList = document.getElementById('exportPreview');
+            previewList.innerHTML = '';
+            
+            const previewTasks = tasks.slice(0, 5); // Show first 5 tasks
+            previewTasks.forEach(task => {
+                const previewItem = document.createElement('div');
+                previewItem.className = 'preview-item';
+                previewItem.innerHTML = `
+                    <span>${task.title}</span>
+                    <span>${task.priority} · ${task.dueDate}</span>
+                `;
+                previewList.appendChild(previewItem);
+            });
+            
+            if (tasks.length > 5) {
+                const moreItem = document.createElement('div');
+                moreItem.className = 'preview-item';
+                moreItem.innerHTML = `<span>...</span><span>+${tasks.length - 5} more</span>`;
+                previewList.appendChild(moreItem);
+            }
+        }
+        
+        function closeExportModal() {
+            document.getElementById('exportModal').classList.remove('active');
+        }
+        
+        function exportToCSV() {
+            if (tasks.length === 0) {
+                showNotification('No tasks to export!', 'warning');
+                return;
+            }
+            
+            // Prepare CSV data
+            const headers = ['Title', 'Priority', 'Category', 'Due Date', 'Status', 'Tags', 'Created At'];
+            const rows = tasks.map(task => [
+                task.title,
+                task.priority,
+                task.category,
+                task.dueDate,
+                task.completed ? 'Completed' : 'Pending',
+                task.tags.join('; '),
+                new Date(task.createdAt).toLocaleDateString()
+            ]);
+            
+            // Create CSV content
+            const csvContent = [
+                headers.join(','),
+                ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+            ].join('\n');
+            
+            // Download CSV
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `flowtask_${currentUser}_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            closeExportModal();
+            showNotification('Tasks exported to CSV successfully!', 'success');
+        }
+        
+        function exportToPDF() {
+            if (tasks.length === 0) {
+                showNotification('No tasks to export!', 'warning');
+                return;
+            }
+            
+            // Create PDF using jsPDF
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Add title
+            doc.setFontSize(20);
+            doc.text(`FlowTask - ${currentUser}'s Tasks`, 20, 20);
+            
+            // Add date
+            doc.setFontSize(12);
+            doc.text(`Exported on: ${new Date().toLocaleDateString()}`, 20, 30);
+            
+            // Add summary
+            const total = tasks.length;
+            const completed = tasks.filter(t => t.completed).length;
+            const pending = total - completed;
+            
+            doc.setFontSize(14);
+            doc.text(`Summary:`, 20, 45);
+            doc.setFontSize(12);
+            doc.text(`Total Tasks: ${total}`, 30, 55);
+            doc.text(`Completed: ${completed}`, 30, 65);
+            doc.text(`Pending: ${pending}`, 30, 75);
+            
+            // Add tasks
+            let yPosition = 95;
+            doc.setFontSize(14);
+            doc.text('Tasks:', 20, yPosition);
+            yPosition += 10;
+            
+            tasks.forEach((task, index) => {
+                if (yPosition > 270) {
+                    doc.addPage();
+                    yPosition = 20;
+                }
+                
+                doc.setFontSize(12);
+                doc.setTextColor(task.completed ? 100 : 0);
+                doc.text(`${index + 1}. ${task.title}`, 25, yPosition);
+                yPosition += 7;
+                
+                doc.setFontSize(10);
+                doc.setTextColor(100);
+                doc.text(`   Priority: ${task.priority} | Category: ${task.category} | Due: ${task.dueDate} | Status: ${task.completed ? '✓' : '○'}`, 25, yPosition);
+                yPosition += 10;
+            });
+            
+            // Save PDF
+            doc.save(`flowtask_${currentUser}_${new Date().toISOString().split('T')[0]}.pdf`);
+            
+            closeExportModal();
+            showNotification('Tasks exported to PDF successfully!', 'success');
+        }
 
         // ==================== NOTIFICATION ====================
         
@@ -1574,28 +2061,30 @@
         
         function showSmartSchedule() {
             const pendingTasks = tasks.filter(t => !t.completed).length;
-            showNotification(`You have ${pendingTasks} tasks to schedule!`, 'info');
+            const overdueTasks = tasks.filter(t => !t.completed && t.dueDate < new Date().toISOString().split('T')[0]).length;
+            
+            let message = `You have ${pendingTasks} pending tasks`;
+            if (overdueTasks > 0) {
+                message += ` (${overdueTasks} overdue)`;
+            }
+            
+            showNotification(message, 'info');
         }
         
         function showProductivityInsights() {
             const completed = tasks.filter(t => t.completed).length;
             const total = tasks.length;
             const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
-            showNotification(`Productivity: ${percentage}% - ${completed}/${total} tasks done!`, 'info');
-        }
-        
-        function exportTasks() {
-            const dataStr = JSON.stringify(tasks, null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
             
-            const exportFileDefaultName = `flowtask_${currentUser}_${new Date().toISOString().split('T')[0]}.json`;
+            const highPriorityCompleted = tasks.filter(t => t.priority === 'high' && t.completed).length;
+            const highPriorityTotal = tasks.filter(t => t.priority === 'high').length;
             
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
+            let message = `Productivity: ${percentage}% - ${completed}/${total} tasks done!`;
+            if (highPriorityTotal > 0) {
+                message += `\nHigh priority: ${highPriorityCompleted}/${highPriorityTotal} completed`;
+            }
             
-            showNotification('Tasks exported successfully!', 'success');
+            showNotification(message, 'info');
         }
         
         function logoutUser() {
@@ -1612,12 +2101,25 @@
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             const today = new Date().toLocaleDateString('en-US', options);
             document.getElementById('currentDate').textContent = today;
+            
+            // Set default due date to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('taskDueDate').value = tomorrow.toISOString().split('T')[0];
         }
 
         // Handle Enter key
         document.getElementById('taskInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 addTask();
+            }
+        });
+
+        // Click outside modal to close
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('exportModal');
+            if (e.target === modal) {
+                closeExportModal();
             }
         });
 
