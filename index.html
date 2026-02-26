@@ -569,9 +569,6 @@
             color: white;
         }
 
-        /* Rest of your existing styles remain the same */
-        /* ... (keep all your existing CSS styles from previous version) ... */
-        
         /* Stats Cards */
         .stats-container {
             display: grid;
@@ -958,7 +955,7 @@
             box-shadow: 0 0 20px #667eea;
         }
 
-        /* Tasks Section */
+        /* Tasks Header */
         .tasks-header {
             display: flex;
             justify-content: space-between;
@@ -1236,6 +1233,230 @@
             background: #03e9f4;
         }
 
+        /* Notification Settings */
+        .notification-settings-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            z-index: 100;
+            border: none;
+            font-size: 24px;
+        }
+
+        .notification-settings-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px #03e9f4;
+        }
+
+        .notification-settings-btn .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #fc8181;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Notification Settings Modal */
+        .notification-settings {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .setting-group {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .setting-group h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .setting-group h3 i {
+            color: #667eea;
+        }
+
+        .setting-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-info {
+            flex: 1;
+        }
+
+        .setting-info h4 {
+            color: #2d3748;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .setting-info p {
+            color: #718096;
+            font-size: 12px;
+        }
+
+        .setting-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Toggle Switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e0;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .time-select, .email-input {
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+            background: white;
+        }
+
+        .time-select:focus, .email-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        /* Snooze Options */
+        .snooze-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .snooze-btn {
+            padding: 10px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .snooze-btn:hover {
+            background: #03e9f4;
+            color: #050801;
+            border-color: transparent;
+            box-shadow: 0 0 15px #03e9f4;
+            transform: translateY(-2px);
+        }
+
+        /* Offline Status */
+        .offline-status {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f56565;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(245, 101, 101, 0.3);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .offline-status.show {
+            display: flex;
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .stats-container {
@@ -1339,7 +1560,7 @@
                         <i class="fas fa-search"></i>
                         <input type="text" id="searchInput" placeholder="Search tasks...">
                     </div>
-                    <div class="notification-btn">
+                    <div class="notification-btn" onclick="openNotificationSettings()">
                         <i class="far fa-bell"></i>
                         <span class="notification-badge" id="notificationBadge">0</span>
                     </div>
@@ -1605,6 +1826,289 @@
         </div>
     </div>
 
+    <!-- Notification Settings Modal -->
+    <div class="modal" id="notificationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🔔 Notification Settings</h2>
+                <button class="close-modal" onclick="closeNotificationSettings()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="notification-settings">
+                <!-- Desktop Notifications -->
+                <div class="setting-group">
+                    <h3><i class="fas fa-desktop"></i> Desktop Notifications</h3>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Enable Desktop Notifications</h4>
+                            <p>Show notifications on your desktop</p>
+                        </div>
+                        <div class="setting-control">
+                            <label class="switch">
+                                <input type="checkbox" id="desktopNotifications" onchange="toggleDesktopNotifications()">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Task Due Reminders</h4>
+                            <p>Get notified when tasks are due</p>
+                        </div>
+                        <div class="setting-control">
+                            <label class="switch">
+                                <input type="checkbox" id="dueReminders" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Remind me before due</h4>
+                            <p>Choose when to get reminded</p>
+                        </div>
+                        <div class="setting-control">
+                            <select class="time-select" id="reminderTime">
+                                <option value="5">5 minutes before</option>
+                                <option value="10" selected>10 minutes before</option>
+                                <option value="15">15 minutes before</option>
+                                <option value="30">30 minutes before</option>
+                                <option value="60">1 hour before</option>
+                                <option value="120">2 hours before</option>
+                                <option value="1440">1 day before</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Recurring Daily Reminders</h4>
+                            <p>Get reminded about pending tasks daily</p>
+                        </div>
+                        <div class="setting-control">
+                            <label class="switch">
+                                <input type="checkbox" id="dailyReminders">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Daily Reminder Time</h4>
+                            <p>Set time for daily reminders</p>
+                        </div>
+                        <div class="setting-control">
+                            <input type="time" class="time-select" id="dailyReminderTime" value="09:00">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobile/Email Notifications -->
+                <div class="setting-group">
+                    <h3><i class="fas fa-mobile-alt"></i> Mobile & Email Notifications</h3>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Email Notifications</h4>
+                            <p>Get notifications via email</p>
+                        </div>
+                        <div class="setting-control">
+                            <label class="switch">
+                                <input type="checkbox" id="emailNotifications" onchange="toggleEmailNotifications()">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Email Address</h4>
+                            <p>Your email for notifications</p>
+                        </div>
+                        <div class="setting-control">
+                            <input type="email" class="email-input" id="notificationEmail" placeholder="your@email.com">
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>SMS Notifications</h4>
+                            <p>Get text message reminders (via email-to-SMS)</p>
+                        </div>
+                        <div class="setting-control">
+                            <label class="switch">
+                                <input type="checkbox" id="smsNotifications">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Phone Number</h4>
+                            <p>Your phone number for SMS</p>
+                        </div>
+                        <div class="setting-control">
+                            <input type="text" class="email-input" id="phoneNumber" placeholder="+1234567890">
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Carrier Gateway</h4>
+                            <p>Select your mobile carrier</p>
+                        </div>
+                        <div class="setting-control">
+                            <select class="time-select" id="carrierGateway">
+                                <option value="">Select Carrier</option>
+                                <option value="@txt.att.net">AT&T</option>
+                                <option value="@vtext.com">Verizon</option>
+                                <option value="@tmomail.net">T-Mobile</option>
+                                <option value="@messaging.sprintpcs.com">Sprint</option>
+                                <option value="@msg.fi.google.com">Google Fi</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Snooze & Reschedule -->
+                <div class="setting-group">
+                    <h3><i class="fas fa-clock"></i> Snooze & Reschedule</h3>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Snooze Options</h4>
+                            <p>Snooze a notification</p>
+                        </div>
+                        <div class="snooze-options">
+                            <button class="snooze-btn" onclick="snoozeNotifications(5)">5 min</button>
+                            <button class="snooze-btn" onclick="snoozeNotifications(15)">15 min</button>
+                            <button class="snooze-btn" onclick="snoozeNotifications(30)">30 min</button>
+                            <button class="snooze-btn" onclick="snoozeNotifications(60)">1 hour</button>
+                            <button class="snooze-btn" onclick="snoozeNotifications(120)">2 hours</button>
+                            <button class="snooze-btn" onclick="snoozeNotifications(1440)">Tomorrow</button>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Auto-reschedule overdue tasks</h4>
+                            <p>Automatically move overdue tasks to today</p>
+                        </div>
+                        <div class="setting-control">
+                            <label class="switch">
+                                <input type="checkbox" id="autoReschedule">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Offline Reminders -->
+                <div class="setting-group">
+                    <h3><i class="fas fa-wifi-slash"></i> Offline Reminders</h3>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Cache notifications for offline</h4>
+                            <p>Store notifications when offline</p>
+                        </div>
+                        <div class="setting-control">
+                            <label class="switch">
+                                <input type="checkbox" id="offlineCache" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Show when back online</h4>
+                            <p>Display notifications when connection restores</p>
+                        </div>
+                        <div class="setting-control">
+                            <label class="switch">
+                                <input type="checkbox" id="showWhenOnline" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Test Notification -->
+                <div class="settings-actions">
+                    <button class="settings-btn primary" onclick="testNotification()">
+                        <i class="fas fa-bell"></i> Test Notification
+                    </button>
+                    <button class="settings-btn primary" onclick="sendTestEmail()">
+                        <i class="fas fa-envelope"></i> Test Email
+                    </button>
+                </div>
+                
+                <div class="settings-actions">
+                    <button class="settings-btn primary" onclick="saveNotificationSettings()">
+                        <i class="fas fa-save"></i> Save Settings
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Snooze Modal -->
+    <div class="modal" id="snoozeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⏰ Snooze Notification</h2>
+                <button class="close-modal" onclick="closeSnoozeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="notification-settings">
+                <div class="setting-group">
+                    <h3>Snooze for:</h3>
+                    <div class="snooze-options" style="grid-template-columns: repeat(2, 1fr);">
+                        <button class="snooze-btn" onclick="snoozeCurrentNotification(5)">5 minutes</button>
+                        <button class="snooze-btn" onclick="snoozeCurrentNotification(15)">15 minutes</button>
+                        <button class="snooze-btn" onclick="snoozeCurrentNotification(30)">30 minutes</button>
+                        <button class="snooze-btn" onclick="snoozeCurrentNotification(60)">1 hour</button>
+                        <button class="snooze-btn" onclick="snoozeCurrentNotification(120)">2 hours</button>
+                        <button class="snooze-btn" onclick="snoozeCurrentNotification(1440)">Tomorrow</button>
+                    </div>
+                </div>
+                
+                <div class="setting-group">
+                    <h3>Reschedule task:</h3>
+                    <div class="form-group">
+                        <label>New due date</label>
+                        <input type="date" id="rescheduleDate">
+                    </div>
+                    <button class="settings-btn primary" onclick="rescheduleTask()" style="margin-top: 10px;">
+                        <i class="fas fa-calendar-check"></i> Reschedule
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Offline Status -->
+    <div class="offline-status" id="offlineStatus">
+        <i class="fas fa-wifi-slash"></i>
+        <span>You're offline. Notifications are cached.</span>
+    </div>
+
+    <!-- Notification Settings Button -->
+    <button class="notification-settings-btn" onclick="openNotificationSettings()">
+        <i class="fas fa-bell"></i>
+        <span class="badge" id="notificationSettingsBadge">0</span>
+    </button>
+
     <script>
         // ==================== USER MANAGEMENT ====================
         
@@ -1668,6 +2172,424 @@
             document.getElementById('editUserName').value = currentUser;
         }
 
+        // ==================== NOTIFICATION SYSTEM ====================
+        
+        // Notification settings
+        let notificationSettings = JSON.parse(localStorage.getItem('flowtask_notification_settings')) || {
+            desktopNotifications: false,
+            dueReminders: true,
+            reminderTime: 10,
+            dailyReminders: false,
+            dailyReminderTime: '09:00',
+            emailNotifications: false,
+            notificationEmail: '',
+            smsNotifications: false,
+            phoneNumber: '',
+            carrierGateway: '',
+            autoReschedule: false,
+            offlineCache: true,
+            showWhenOnline: true
+        };
+
+        // Cached notifications for offline
+        let cachedNotifications = JSON.parse(localStorage.getItem('flowtask_cached_notifications')) || [];
+
+        // Notification queue
+        let notificationQueue = [];
+        let notificationIntervals = [];
+
+        // Request notification permission on load
+        if ('Notification' in window) {
+            Notification.requestPermission();
+        }
+
+        // Check online status
+        window.addEventListener('online', handleOnlineStatus);
+        window.addEventListener('offline', handleOfflineStatus);
+
+        function handleOnlineStatus() {
+            document.getElementById('offlineStatus').classList.remove('show');
+            
+            if (notificationSettings.showWhenOnline && cachedNotifications.length > 0) {
+                // Show cached notifications
+                cachedNotifications.forEach(notification => {
+                    showDesktopNotification(notification.title, notification.options);
+                });
+                
+                // Clear cache
+                cachedNotifications = [];
+                localStorage.setItem('flowtask_cached_notifications', JSON.stringify(cachedNotifications));
+            }
+            
+            // Resume notification checking
+            startNotificationChecker();
+        }
+
+        function handleOfflineStatus() {
+            document.getElementById('offlineStatus').classList.add('show');
+            
+            // Stop notification checking when offline
+            stopNotificationChecker();
+        }
+
+        function stopNotificationChecker() {
+            notificationIntervals.forEach(interval => clearInterval(interval));
+            notificationIntervals = [];
+        }
+
+        // Desktop notification
+        function showDesktopNotification(title, options = {}) {
+            if (!notificationSettings.desktopNotifications) return;
+            
+            if ('Notification' in window) {
+                if (Notification.permission === 'granted') {
+                    // Check if offline and caching enabled
+                    if (!navigator.onLine && notificationSettings.offlineCache) {
+                        // Cache notification for later
+                        cachedNotifications.push({ title, options, timestamp: Date.now() });
+                        localStorage.setItem('flowtask_cached_notifications', JSON.stringify(cachedNotifications));
+                        return;
+                    }
+                    
+                    const notification = new Notification(title, {
+                        body: options.body || '',
+                        icon: options.icon || 'https://via.placeholder.com/128/667eea/ffffff?text=FT',
+                        badge: 'https://via.placeholder.com/128/667eea/ffffff?text=FT',
+                        tag: options.tag || 'task-reminder',
+                        requireInteraction: true,
+                        silent: false,
+                        ...options
+                    });
+                    
+                    notification.onclick = function() {
+                        window.focus();
+                        if (options.taskId) {
+                            // Open task details
+                            openTaskDetails(options.taskId);
+                        }
+                        this.close();
+                    };
+                    
+                    notification.onshow = function() {
+                        setTimeout(() => this.close(), 10000);
+                    };
+                    
+                    return notification;
+                } else if (Notification.permission !== 'denied') {
+                    Notification.requestPermission();
+                }
+            }
+        }
+
+        // Email notification (using mailto)
+        function sendEmailNotification(email, subject, body) {
+            if (!notificationSettings.emailNotifications || !email) return;
+            
+            const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoLink;
+        }
+
+        // SMS notification via email-to-SMS
+        function sendSMSNotification(phoneNumber, carrier, message) {
+            if (!notificationSettings.smsNotifications || !phoneNumber || !carrier) return;
+            
+            const smsEmail = `${phoneNumber}${carrier}`;
+            const mailtoLink = `mailto:${smsEmail}?subject=${encodeURIComponent('FlowTask Reminder')}&body=${encodeURIComponent(message)}`;
+            window.location.href = mailtoLink;
+        }
+
+        // Check due tasks and send notifications
+        function checkDueTasks() {
+            const now = new Date();
+            const today = now.toISOString().split('T')[0];
+            const currentTime = now.getHours() * 60 + now.getMinutes();
+            
+            tasks.forEach(task => {
+                if (task.completed) return;
+                
+                // Check due date reminders
+                if (notificationSettings.dueReminders && task.dueDate) {
+                    const dueDate = new Date(task.dueDate);
+                    const timeDiff = dueDate - now;
+                    const minutesDiff = Math.floor(timeDiff / (1000 * 60));
+                    
+                    // Check if task is due soon
+                    if (minutesDiff > 0 && minutesDiff <= notificationSettings.reminderTime) {
+                        const notificationId = `due-${task.id}`;
+                        
+                        // Check if already notified
+                        if (!notificationQueue.includes(notificationId)) {
+                            notificationQueue.push(notificationId);
+                            
+                            // Desktop notification
+                            showDesktopNotification(`Task Due Soon: ${task.title}`, {
+                                body: `Due in ${minutesDiff} minutes • Priority: ${task.priority}`,
+                                tag: `due-${task.id}`,
+                                taskId: task.id
+                            });
+                            
+                            // Email notification
+                            if (notificationSettings.emailNotifications && notificationSettings.notificationEmail) {
+                                sendEmailNotification(
+                                    notificationSettings.notificationEmail,
+                                    `FlowTask: ${task.title} is due soon`,
+                                    `Your task "${task.title}" is due in ${minutesDiff} minutes.\n\nPriority: ${task.priority}\nDue Date: ${task.dueDate}\n\nComplete it now: ${window.location.href}`
+                                );
+                            }
+                            
+                            // SMS notification
+                            if (notificationSettings.smsNotifications && notificationSettings.phoneNumber && notificationSettings.carrierGateway) {
+                                sendSMSNotification(
+                                    notificationSettings.phoneNumber,
+                                    notificationSettings.carrierGateway,
+                                    `FlowTask: "${task.title}" is due in ${minutesDiff} minutes. Priority: ${task.priority}`
+                                );
+                            }
+                        }
+                    }
+                    
+                    // Check overdue tasks
+                    if (task.dueDate < today) {
+                        const notificationId = `overdue-${task.id}`;
+                        
+                        if (!notificationQueue.includes(notificationId)) {
+                            notificationQueue.push(notificationId);
+                            
+                            showDesktopNotification(`Overdue Task: ${task.title}`, {
+                                body: `This task was due on ${task.dueDate}`,
+                                tag: `overdue-${task.id}`,
+                                taskId: task.id
+                            });
+                            
+                            // Auto-reschedule if enabled
+                            if (notificationSettings.autoReschedule) {
+                                task.dueDate = today;
+                                saveTasks();
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Update notification badge
+            document.getElementById('notificationSettingsBadge').innerText = notificationQueue.length;
+        }
+
+        // Daily reminders
+        function checkDailyReminders() {
+            if (!notificationSettings.dailyReminders) return;
+            
+            const now = new Date();
+            const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+            
+            if (currentTime === notificationSettings.dailyReminderTime) {
+                const pendingTasks = tasks.filter(t => !t.completed).length;
+                const todayTasks = tasks.filter(t => t.dueDate === now.toISOString().split('T')[0] && !t.completed).length;
+                
+                if (pendingTasks > 0) {
+                    showDesktopNotification(`Daily Reminder: ${pendingTasks} tasks pending`, {
+                        body: `${todayTasks} tasks due today • Keep going!`,
+                        tag: 'daily-reminder'
+                    });
+                    
+                    // Email daily summary
+                    if (notificationSettings.emailNotifications && notificationSettings.notificationEmail) {
+                        const completed = tasks.filter(t => t.completed).length;
+                        sendEmailNotification(
+                            notificationSettings.notificationEmail,
+                            'FlowTask: Your Daily Summary',
+                            `You have ${pendingTasks} pending tasks (${todayTasks} due today).\n\nCompleted: ${completed}\nTotal: ${tasks.length}\n\nCheck your tasks: ${window.location.href}`
+                        );
+                    }
+                }
+            }
+        }
+
+        // Start notification checker
+        function startNotificationChecker() {
+            // Clear existing intervals
+            stopNotificationChecker();
+            
+            // Check every minute
+            notificationIntervals.push(setInterval(checkDueTasks, 60000));
+            
+            // Check daily reminders every minute
+            notificationIntervals.push(setInterval(checkDailyReminders, 60000));
+            
+            // Initial check
+            checkDueTasks();
+            checkDailyReminders();
+        }
+
+        // Snooze notifications
+        let snoozedUntil = null;
+        
+        function snoozeNotifications(minutes) {
+            snoozedUntil = Date.now() + (minutes * 60000);
+            showDesktopNotification('Notifications Snoozed', {
+                body: `Notifications snoozed for ${minutes} minutes`,
+                tag: 'snooze'
+            });
+        }
+
+        function snoozeCurrentNotification(minutes) {
+            closeSnoozeModal();
+            snoozeNotifications(minutes);
+            showNotification(`Notification snoozed for ${minutes} minutes`, 'info');
+        }
+
+        // Reschedule task
+        let currentNotificationTaskId = null;
+
+        function openSnoozeModal(taskId) {
+            currentNotificationTaskId = taskId;
+            const task = tasks.find(t => t.id === taskId);
+            
+            if (task) {
+                document.getElementById('rescheduleDate').value = task.dueDate;
+                document.getElementById('snoozeModal').classList.add('active');
+            }
+        }
+
+        function closeSnoozeModal() {
+            document.getElementById('snoozeModal').classList.remove('active');
+            currentNotificationTaskId = null;
+        }
+
+        function rescheduleTask() {
+            if (currentNotificationTaskId) {
+                const task = tasks.find(t => t.id === currentNotificationTaskId);
+                const newDate = document.getElementById('rescheduleDate').value;
+                
+                if (task && newDate) {
+                    task.dueDate = newDate;
+                    saveTasks();
+                    
+                    // Remove from notification queue
+                    notificationQueue = notificationQueue.filter(id => !id.includes(currentNotificationTaskId));
+                    document.getElementById('notificationSettingsBadge').innerText = notificationQueue.length;
+                    
+                    showNotification(`Task rescheduled to ${newDate}`, 'success');
+                    closeSnoozeModal();
+                }
+            }
+        }
+
+        // Open task details
+        function openTaskDetails(taskId) {
+            // Filter to show this task
+            filterTasks('all');
+            
+            // Highlight the task
+            setTimeout(() => {
+                const taskElement = document.querySelector(`[onclick*="${taskId}"]`)?.closest('.task-item');
+                if (taskElement) {
+                    taskElement.style.boxShadow = '0 0 30px #03e9f4';
+                    taskElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    setTimeout(() => {
+                        taskElement.style.boxShadow = '';
+                    }, 2000);
+                }
+            }, 100);
+        }
+
+        // Toggle desktop notifications
+        function toggleDesktopNotifications() {
+            notificationSettings.desktopNotifications = document.getElementById('desktopNotifications').checked;
+            
+            if (notificationSettings.desktopNotifications && 'Notification' in window) {
+                Notification.requestPermission();
+            }
+            
+            saveNotificationSettings();
+        }
+
+        // Toggle email notifications
+        function toggleEmailNotifications() {
+            notificationSettings.emailNotifications = document.getElementById('emailNotifications').checked;
+            saveNotificationSettings();
+        }
+
+        // Test notification
+        function testNotification() {
+            showDesktopNotification('FlowTask Test Notification', {
+                body: 'This is a test notification from FlowTask!',
+                tag: 'test'
+            });
+            
+            showNotification('Test notification sent!', 'success');
+        }
+
+        // Send test email
+        function sendTestEmail() {
+            if (notificationSettings.emailNotifications && notificationSettings.notificationEmail) {
+                sendEmailNotification(
+                    notificationSettings.notificationEmail,
+                    'FlowTask Test Email',
+                    'This is a test email from FlowTask!\n\nYour notification settings are working correctly.'
+                );
+                showNotification('Test email sent!', 'success');
+            } else {
+                showNotification('Please enable email notifications and enter an email address', 'warning');
+            }
+        }
+
+        // Save notification settings
+        function saveNotificationSettings() {
+            notificationSettings = {
+                desktopNotifications: document.getElementById('desktopNotifications').checked,
+                dueReminders: document.getElementById('dueReminders').checked,
+                reminderTime: parseInt(document.getElementById('reminderTime').value),
+                dailyReminders: document.getElementById('dailyReminders').checked,
+                dailyReminderTime: document.getElementById('dailyReminderTime').value,
+                emailNotifications: document.getElementById('emailNotifications').checked,
+                notificationEmail: document.getElementById('notificationEmail').value,
+                smsNotifications: document.getElementById('smsNotifications').checked,
+                phoneNumber: document.getElementById('phoneNumber').value,
+                carrierGateway: document.getElementById('carrierGateway').value,
+                autoReschedule: document.getElementById('autoReschedule').checked,
+                offlineCache: document.getElementById('offlineCache').checked,
+                showWhenOnline: document.getElementById('showWhenOnline').checked
+            };
+            
+            localStorage.setItem('flowtask_notification_settings', JSON.stringify(notificationSettings));
+            
+            // Restart notification checker
+            startNotificationChecker();
+            
+            closeNotificationSettings();
+            showNotification('Notification settings saved!', 'success');
+        }
+
+        // Load notification settings into UI
+        function loadNotificationSettings() {
+            document.getElementById('desktopNotifications').checked = notificationSettings.desktopNotifications;
+            document.getElementById('dueReminders').checked = notificationSettings.dueReminders;
+            document.getElementById('reminderTime').value = notificationSettings.reminderTime;
+            document.getElementById('dailyReminders').checked = notificationSettings.dailyReminders;
+            document.getElementById('dailyReminderTime').value = notificationSettings.dailyReminderTime;
+            document.getElementById('emailNotifications').checked = notificationSettings.emailNotifications;
+            document.getElementById('notificationEmail').value = notificationSettings.notificationEmail || '';
+            document.getElementById('smsNotifications').checked = notificationSettings.smsNotifications;
+            document.getElementById('phoneNumber').value = notificationSettings.phoneNumber || '';
+            document.getElementById('carrierGateway').value = notificationSettings.carrierGateway || '';
+            document.getElementById('autoReschedule').checked = notificationSettings.autoReschedule;
+            document.getElementById('offlineCache').checked = notificationSettings.offlineCache;
+            document.getElementById('showWhenOnline').checked = notificationSettings.showWhenOnline;
+        }
+
+        // ==================== NOTIFICATION MODAL FUNCTIONS ====================
+        
+        function openNotificationSettings() {
+            loadNotificationSettings();
+            document.getElementById('notificationModal').classList.add('active');
+        }
+        
+        function closeNotificationSettings() {
+            document.getElementById('notificationModal').classList.remove('active');
+        }
+
         // ==================== USER MODAL FUNCTIONS ====================
         
         function openUserModal() {
@@ -1716,6 +2638,11 @@
                 updateStats();
                 renderTasks();
                 closeUserModal();
+                
+                // Restart notification checker for new user
+                notificationQueue = [];
+                startNotificationChecker();
+                
                 showNotification(`Switched to ${currentUser}`, 'success');
             }
         }
@@ -1958,6 +2885,9 @@
                     <button class="task-action-btn" onclick="duplicateTask(${task.id})">
                         <i class="far fa-copy"></i>
                     </button>
+                    <button class="task-action-btn" onclick="openSnoozeModal(${task.id})">
+                        <i class="fas fa-clock"></i>
+                    </button>
                 </div>
             `;
             return div;
@@ -2052,6 +2982,13 @@
             if (task) {
                 task.completed = !task.completed;
                 saveTasks();
+                
+                // Remove from notification queue if completed
+                if (task.completed) {
+                    notificationQueue = notificationQueue.filter(id => !id.includes(taskId));
+                    document.getElementById('notificationSettingsBadge').innerText = notificationQueue.length;
+                }
+                
                 showNotification(task.completed ? 'Task completed! 🎉' : 'Task reopened', 'info');
             }
         }
@@ -2059,6 +2996,11 @@
         function deleteTask(taskId) {
             if (confirm('Are you sure you want to delete this task?')) {
                 tasks = tasks.filter(t => t.id !== taskId);
+                
+                // Remove from notification queue
+                notificationQueue = notificationQueue.filter(id => !id.includes(taskId));
+                document.getElementById('notificationSettingsBadge').innerText = notificationQueue.length;
+                
                 saveTasks();
                 showNotification('Task deleted', 'warning');
             }
@@ -2397,12 +3339,20 @@
         window.addEventListener('click', function(e) {
             const userModal = document.getElementById('userModal');
             const exportModal = document.getElementById('exportModal');
+            const notificationModal = document.getElementById('notificationModal');
+            const snoozeModal = document.getElementById('snoozeModal');
             
             if (e.target === userModal) {
                 closeUserModal();
             }
             if (e.target === exportModal) {
                 closeExportModal();
+            }
+            if (e.target === notificationModal) {
+                closeNotificationSettings();
+            }
+            if (e.target === snoozeModal) {
+                closeSnoozeModal();
             }
         });
 
@@ -2426,6 +3376,14 @@
         updateDate();
         updateStats();
         renderTasks();
+        
+        // Start notification checker
+        startNotificationChecker();
+        
+        // Check online status on load
+        if (!navigator.onLine) {
+            handleOfflineStatus();
+        }
     </script>
 </body>
 </html>
