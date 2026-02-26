@@ -137,6 +137,7 @@
             color: #764ba2;
         }
 
+        /* Enhanced User Profile with Click Handler */
         .user-profile {
             display: flex;
             align-items: center;
@@ -148,6 +149,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .user-profile:hover {
@@ -179,14 +181,21 @@
             color: #718096;
         }
 
-        .logout-icon {
-            margin-left: auto;
-            color: #718096;
-            transition: all 0.3s ease;
-        }
-
-        .user-profile:hover .logout-icon {
-            color: #f56565;
+        .user-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 20px;
+            height: 20px;
+            background: #03e9f4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #050801;
+            font-size: 10px;
+            font-weight: bold;
+            border: 2px solid white;
         }
 
         /* Main Content */
@@ -282,39 +291,287 @@
             font-weight: 600;
         }
 
-        /* Welcome Section for New Users */
-        .welcome-section {
-            text-align: center;
-            padding: 40px;
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            border-radius: 30px;
-            margin-bottom: 30px;
-            border: 2px dashed #cbd5e0;
+        /* Profile Switcher Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
         }
 
-        .welcome-section h2 {
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            animation: modalSlideIn 0.3s ease;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .modal-header h2 {
             color: #2d3748;
             font-size: 24px;
-            margin-bottom: 15px;
         }
 
-        .welcome-section p {
+        .close-modal {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
             color: #718096;
-            margin-bottom: 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
 
-        .welcome-icon {
-            font-size: 60px;
+        .close-modal:hover {
+            background: #f56565;
+            color: white;
+            border-color: transparent;
+        }
+
+        /* Profile Switcher */
+        .profile-switcher {
+            margin-bottom: 30px;
+        }
+
+        .profile-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .profile-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .profile-item:hover {
+            border-color: #03e9f4;
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(3, 233, 244, 0.2);
+        }
+
+        .profile-item.active {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea10, #764ba210);
+        }
+
+        .profile-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .profile-details {
+            flex: 1;
+        }
+
+        .profile-details h4 {
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .profile-details p {
+            color: #718096;
+            font-size: 12px;
+        }
+
+        .profile-check {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #c6f6d5;
+            color: #2f855a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        /* Add Profile Button */
+        .add-profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: #f7fafc;
+            border: 2px dashed #cbd5e0;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .add-profile-btn:hover {
+            border-color: #03e9f4;
+            background: white;
+        }
+
+        .add-profile-btn i {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: #667eea;
+            font-size: 20px;
+        }
+
+        .add-profile-btn span {
+            color: #2d3748;
+            font-weight: 500;
+        }
+
+        /* User Settings */
+        .user-settings {
+            border-top: 1px solid #e2e8f0;
+            padding-top: 30px;
+        }
+
+        .user-settings h3 {
+            color: #2d3748;
             margin-bottom: 20px;
-            animation: bounce 2s infinite;
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .settings-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            color: #4a5568;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            padding: 12px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            outline: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .settings-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .settings-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .settings-btn.primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .settings-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .settings-btn.danger {
+            background: #fff5f5;
+            color: #c53030;
+            border: 1px solid #fc8181;
+        }
+
+        .settings-btn.danger:hover {
+            background: #c53030;
+            color: white;
+        }
+
+        .settings-btn.warning {
+            background: #feebc8;
+            color: #dd6b20;
+            border: 1px solid #f6ad55;
+        }
+
+        .settings-btn.warning:hover {
+            background: #dd6b20;
+            color: white;
+        }
+
+        /* Rest of your existing styles remain the same */
+        /* ... (keep all your existing CSS styles from previous version) ... */
+        
         /* Stats Cards */
         .stats-container {
             display: grid;
@@ -401,7 +658,7 @@
             transition: width 0.5s ease;
         }
 
-        /* Neon Buttons Container */
+        /* Neon Buttons */
         .neon-buttons-container {
             display: flex;
             gap: 20px;
@@ -534,7 +791,7 @@
             }
         }
 
-        /* Task Input with Enhanced Options */
+        /* Task Input */
         .task-input-container {
             background: #f7fafc;
             padding: 20px;
@@ -597,7 +854,7 @@
             color: #050801;
         }
 
-        /* Enhanced Task Options */
+        /* Task Options */
         .task-options {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -641,7 +898,6 @@
             color: white;
         }
 
-        /* Date Picker */
         .date-picker {
             grid-column: span 2;
             padding: 12px;
@@ -665,166 +921,6 @@
 
         .date-picker i {
             color: #667eea;
-        }
-
-        /* Export Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 30px;
-            padding: 40px;
-            max-width: 500px;
-            width: 90%;
-            animation: modalSlideIn 0.3s ease;
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .modal-header h2 {
-            color: #2d3748;
-            font-size: 24px;
-        }
-
-        .close-modal {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #f7fafc;
-            border: 1px solid #e2e8f0;
-            color: #718096;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .close-modal:hover {
-            background: #f56565;
-            color: white;
-            border-color: transparent;
-        }
-
-        .export-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .export-option {
-            padding: 30px 20px;
-            background: #f7fafc;
-            border: 2px solid #e2e8f0;
-            border-radius: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .export-option:hover {
-            border-color: #03e9f4;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(3, 233, 244, 0.3);
-        }
-
-        .export-option i {
-            font-size: 40px;
-            color: #667eea;
-            margin-bottom: 15px;
-        }
-
-        .export-option h3 {
-            color: #2d3748;
-            margin-bottom: 8px;
-        }
-
-        .export-option p {
-            color: #718096;
-            font-size: 14px;
-        }
-
-        .export-preview {
-            background: #f7fafc;
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        .export-preview h4 {
-            color: #2d3748;
-            margin-bottom: 15px;
-            font-size: 16px;
-        }
-
-        .preview-list {
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .preview-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-            border-bottom: 1px solid #e2e8f0;
-            font-size: 14px;
-        }
-
-        .preview-item:last-child {
-            border-bottom: none;
-        }
-
-        .preview-item span:first-child {
-            color: #2d3748;
-            font-weight: 500;
-        }
-
-        .preview-item span:last-child {
-            color: #718096;
-        }
-
-        /* Priority Colors */
-        .priority-high {
-            color: #fc8181;
-        }
-        .priority-medium {
-            color: #f6ad55;
-        }
-        .priority-low {
-            color: #68d391;
         }
 
         /* Filters */
@@ -1122,7 +1218,7 @@
             color: #718096;
         }
 
-        /* Scrollbar Styling */
+        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -1140,7 +1236,7 @@
             background: #03e9f4;
         }
 
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 1024px) {
             .stats-container {
                 grid-template-columns: repeat(2, 1fr);
@@ -1171,10 +1267,6 @@
             }
             
             .task-options {
-                grid-template-columns: 1fr;
-            }
-            
-            .export-options {
                 grid-template-columns: 1fr;
             }
         }
@@ -1216,19 +1308,18 @@
                     <i class="fas fa-chart-pie"></i>
                     <span>Analytics</span>
                 </div>
-                <div class="nav-item" onclick="logoutUser()">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Logout</span>
-                </div>
             </div>
 
-            <div class="user-profile" onclick="logoutUser()">
+            <!-- Updated User Profile with Click Handler -->
+            <div class="user-profile" onclick="openUserModal()">
                 <div class="avatar" id="userAvatar">JD</div>
                 <div class="user-info">
                     <h4 id="userName">John Doe</h4>
                     <p>Pro Plan · <span id="userProgress">0%</span></p>
                 </div>
-                <i class="fas fa-sign-out-alt logout-icon"></i>
+                <div class="user-badge">
+                    <i class="fas fa-user"></i>
+                </div>
             </div>
         </div>
 
@@ -1342,7 +1433,7 @@
                 </div>
             </div>
 
-            <!-- Enhanced Task Input with Priority and Date -->
+            <!-- Enhanced Task Input -->
             <div class="task-input-container">
                 <div class="task-input-wrapper">
                     <input type="text" id="taskInput" placeholder="What needs to be done?" autocomplete="off">
@@ -1352,9 +1443,7 @@
                     </button>
                 </div>
                 
-                <!-- Enhanced Task Options with Priority and Date -->
                 <div class="task-options">
-                    <!-- Priority Options -->
                     <div class="task-option" id="priorityHigh" onclick="setPriority('high')">
                         <i class="fas fa-flag"></i>
                         <span>High Priority</span>
@@ -1368,7 +1457,6 @@
                         <span>Low Priority</span>
                     </div>
                     
-                    <!-- Category Options -->
                     <div class="task-option" id="categoryWork" onclick="setCategory('work')">
                         <i class="fas fa-briefcase"></i>
                         <span>Work</span>
@@ -1378,10 +1466,9 @@
                         <span>Personal</span>
                     </div>
                     
-                    <!-- Date Picker -->
                     <div class="date-picker">
                         <i class="far fa-calendar-alt"></i>
-                        <input type="date" id="taskDueDate" value="<?php echo date('Y-m-d'); ?>">
+                        <input type="date" id="taskDueDate">
                     </div>
                 </div>
             </div>
@@ -1410,7 +1497,7 @@
                 <!-- Tasks will be dynamically added here -->
             </div>
 
-            <!-- Quick Actions with Export -->
+            <!-- Quick Actions -->
             <div class="quick-actions">
                 <div class="quick-action" onclick="showSmartSchedule()">
                     <i class="fas fa-magic"></i>
@@ -1432,11 +1519,65 @@
         </div>
     </div>
 
+    <!-- User Profile Modal -->
+    <div class="modal" id="userModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>👤 User Profile</h2>
+                <button class="close-modal" onclick="closeUserModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Profile Switcher Section -->
+            <div class="profile-switcher">
+                <h3>Switch Profile</h3>
+                <div class="profile-list" id="profileList">
+                    <!-- Profiles will be dynamically added here -->
+                </div>
+                
+                <div class="add-profile-btn" onclick="addNewUser()">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Add New Profile</span>
+                </div>
+            </div>
+            
+            <!-- Current User Settings -->
+            <div class="user-settings">
+                <h3>Profile Settings</h3>
+                <div class="settings-form">
+                    <div class="form-group">
+                        <label>Display Name</label>
+                        <input type="text" id="editUserName" placeholder="Enter your name">
+                    </div>
+                    
+                    <div class="settings-actions">
+                        <button class="settings-btn primary" onclick="updateUserName()">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                        <button class="settings-btn warning" onclick="resetUserData()">
+                            <i class="fas fa-undo"></i> Reset Data
+                        </button>
+                    </div>
+                    
+                    <div class="settings-actions">
+                        <button class="settings-btn danger" onclick="logoutUser()">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                        <button class="settings-btn danger" onclick="deleteCurrentUser()">
+                            <i class="fas fa-trash"></i> Delete Profile
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Export Modal -->
     <div class="modal" id="exportModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Export Tasks</h2>
+                <h2>📤 Export Tasks</h2>
                 <button class="close-modal" onclick="closeExportModal()">
                     <i class="fas fa-times"></i>
                 </button>
@@ -1461,55 +1602,238 @@
                     <!-- Preview items will be dynamically added here -->
                 </div>
             </div>
-            
-            <div style="display: flex; gap: 10px; margin-top: 20px;">
-                <button class="add-task-btn" style="flex: 1;" onclick="exportToCSV()">
-                    <i class="fas fa-file-csv"></i> Export as CSV
-                </button>
-                <button class="add-task-btn" style="flex: 1;" onclick="exportToPDF()">
-                    <i class="fas fa-file-pdf"></i> Export as PDF
-                </button>
-            </div>
         </div>
     </div>
 
     <script>
         // ==================== USER MANAGEMENT ====================
         
-        // Get or create user
-        let currentUser = localStorage.getItem("flowtask_user");
-        
-        if (!currentUser) {
-            currentUser = prompt("👋 Welcome to FlowTask!\n\nPlease enter your name to get started:");
-            if (!currentUser || currentUser.trim() === "") {
-                alert("Name is required to use FlowTask!");
-                currentUser = "User"; // Default fallback
+        // Get all users from localStorage
+        let users = JSON.parse(localStorage.getItem('flowtask_users')) || [];
+        let currentUser = localStorage.getItem("flowtask_current_user");
+
+        // If no users exist or no current user, create default
+        if (!currentUser || !users.includes(currentUser)) {
+            if (users.length === 0) {
+                const defaultUser = prompt("👋 Welcome to FlowTask!\n\nPlease enter your name to get started:");
+                if (defaultUser && defaultUser.trim() !== "") {
+                    const userName = defaultUser.trim();
+                    users = [userName];
+                    localStorage.setItem('flowtask_users', JSON.stringify(users));
+                    currentUser = userName;
+                    localStorage.setItem("flowtask_current_user", currentUser);
+                    
+                    // Initialize empty tasks for new user
+                    localStorage.setItem(`flowtask_tasks_${currentUser}`, JSON.stringify([]));
+                } else {
+                    const fallbackUser = "User";
+                    users = [fallbackUser];
+                    localStorage.setItem('flowtask_users', JSON.stringify(users));
+                    currentUser = fallbackUser;
+                    localStorage.setItem("flowtask_current_user", currentUser);
+                }
+            } else {
+                currentUser = users[0];
+                localStorage.setItem("flowtask_current_user", currentUser);
             }
-            currentUser = currentUser.trim();
-            localStorage.setItem("flowtask_user", currentUser);
         }
 
-        // Update UI with user name
-        document.getElementById("userName").innerText = currentUser;
-        document.getElementById("userAvatar").innerText = currentUser.charAt(0).toUpperCase();
-        
-        const hour = new Date().getHours();
-        let greeting = "Good ";
-        if (hour < 12) greeting += "morning";
-        else if (hour < 18) greeting += "afternoon";
-        else greeting += "evening";
-        document.getElementById("greeting").innerText = `${greeting}, ${currentUser}! 👋`;
-
-        // ==================== TASKS MANAGEMENT ====================
-        
-        // Load tasks from localStorage
+        // Load tasks for current user
         let tasks = JSON.parse(localStorage.getItem(`flowtask_tasks_${currentUser}`)) || [];
-        
+
         // Save tasks helper
         function saveTasks() {
             localStorage.setItem(`flowtask_tasks_${currentUser}`, JSON.stringify(tasks));
             updateStats();
             renderTasks();
+        }
+
+        // Save users list
+        function saveUsers() {
+            localStorage.setItem('flowtask_users', JSON.stringify(users));
+        }
+
+        // Update UI with current user
+        function updateUserUI() {
+            document.getElementById("userName").innerText = currentUser;
+            document.getElementById("userAvatar").innerText = currentUser.charAt(0).toUpperCase();
+            
+            const hour = new Date().getHours();
+            let greeting = "Good ";
+            if (hour < 12) greeting += "morning";
+            else if (hour < 18) greeting += "afternoon";
+            else greeting += "evening";
+            document.getElementById("greeting").innerText = `${greeting}, ${currentUser}! 👋`;
+            
+            document.getElementById('editUserName').value = currentUser;
+        }
+
+        // ==================== USER MODAL FUNCTIONS ====================
+        
+        function openUserModal() {
+            document.getElementById('userModal').classList.add('active');
+            renderProfileList();
+            document.getElementById('editUserName').value = currentUser;
+        }
+        
+        function closeUserModal() {
+            document.getElementById('userModal').classList.remove('active');
+        }
+
+        function renderProfileList() {
+            const profileList = document.getElementById('profileList');
+            profileList.innerHTML = '';
+            
+            users.forEach(user => {
+                const taskCount = JSON.parse(localStorage.getItem(`flowtask_tasks_${user}`) || '[]').length;
+                
+                const profileItem = document.createElement('div');
+                profileItem.className = `profile-item ${user === currentUser ? 'active' : ''}`;
+                profileItem.onclick = () => switchUser(user);
+                
+                profileItem.innerHTML = `
+                    <div class="profile-avatar">${user.charAt(0).toUpperCase()}</div>
+                    <div class="profile-details">
+                        <h4>${user}</h4>
+                        <p>${taskCount} tasks</p>
+                    </div>
+                    ${user === currentUser ? '<div class="profile-check"><i class="fas fa-check"></i></div>' : ''}
+                `;
+                
+                profileList.appendChild(profileItem);
+            });
+        }
+
+        function switchUser(username) {
+            if (username !== currentUser) {
+                currentUser = username;
+                localStorage.setItem("flowtask_current_user", currentUser);
+                
+                // Load new user's tasks
+                tasks = JSON.parse(localStorage.getItem(`flowtask_tasks_${currentUser}`)) || [];
+                
+                updateUserUI();
+                updateStats();
+                renderTasks();
+                closeUserModal();
+                showNotification(`Switched to ${currentUser}`, 'success');
+            }
+        }
+
+        function addNewUser() {
+            const newUserName = prompt("Enter new profile name:");
+            if (newUserName && newUserName.trim() !== "") {
+                const userName = newUserName.trim();
+                
+                if (users.includes(userName)) {
+                    alert("This profile name already exists!");
+                    return;
+                }
+                
+                users.push(userName);
+                saveUsers();
+                
+                // Initialize empty tasks for new user
+                localStorage.setItem(`flowtask_tasks_${userName}`, JSON.stringify([]));
+                
+                // Switch to new user
+                currentUser = userName;
+                localStorage.setItem("flowtask_current_user", currentUser);
+                tasks = [];
+                
+                updateUserUI();
+                updateStats();
+                renderTasks();
+                renderProfileList();
+                
+                showNotification(`New profile "${userName}" created!`, 'success');
+            }
+        }
+
+        function updateUserName() {
+            const newName = document.getElementById('editUserName').value.trim();
+            
+            if (newName && newName !== currentUser) {
+                if (users.includes(newName)) {
+                    alert("This name is already taken!");
+                    return;
+                }
+                
+                // Update users list
+                const index = users.indexOf(currentUser);
+                users[index] = newName;
+                saveUsers();
+                
+                // Migrate tasks to new name
+                const userTasks = JSON.parse(localStorage.getItem(`flowtask_tasks_${currentUser}`)) || [];
+                localStorage.setItem(`flowtask_tasks_${newName}`, JSON.stringify(userTasks));
+                localStorage.removeItem(`flowtask_tasks_${currentUser}`);
+                
+                // Update current user
+                currentUser = newName;
+                localStorage.setItem("flowtask_current_user", currentUser);
+                
+                // Update tasks array
+                tasks = userTasks;
+                
+                updateUserUI();
+                renderProfileList();
+                showNotification('Profile name updated!', 'success');
+            }
+        }
+
+        function resetUserData() {
+            if (confirm(`Are you sure you want to reset all data for ${currentUser}?`)) {
+                tasks = [];
+                saveTasks();
+                updateStats();
+                renderTasks();
+                showNotification('All tasks cleared!', 'warning');
+            }
+        }
+
+        function deleteCurrentUser() {
+            if (users.length === 1) {
+                alert("Cannot delete the last profile. Create a new profile first.");
+                return;
+            }
+            
+            if (confirm(`Are you sure you want to delete profile "${currentUser}"? This cannot be undone.`)) {
+                // Remove user from list
+                users = users.filter(u => u !== currentUser);
+                saveUsers();
+                
+                // Remove user's tasks
+                localStorage.removeItem(`flowtask_tasks_${currentUser}`);
+                
+                // Switch to first available user
+                currentUser = users[0];
+                localStorage.setItem("flowtask_current_user", currentUser);
+                
+                // Load new user's tasks
+                tasks = JSON.parse(localStorage.getItem(`flowtask_tasks_${currentUser}`)) || [];
+                
+                updateUserUI();
+                updateStats();
+                renderTasks();
+                renderProfileList();
+                closeUserModal();
+                
+                showNotification('Profile deleted!', 'warning');
+            }
+        }
+
+        function logoutUser() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem("flowtask_current_user");
+                
+                // Show profile switcher modal for login
+                if (users.length > 0) {
+                    openUserModal();
+                } else {
+                    location.reload();
+                }
+            }
         }
 
         // ==================== TASK OPTIONS STATE ====================
@@ -1520,7 +1844,6 @@
         function setPriority(priority) {
             selectedPriority = priority;
             
-            // Update UI
             document.querySelectorAll('[id^="priority"]').forEach(el => {
                 el.classList.remove('active');
             });
@@ -1532,7 +1855,6 @@
         function setCategory(category) {
             selectedCategory = category;
             
-            // Update UI
             document.querySelectorAll('[id^="category"]').forEach(el => {
                 el.classList.remove('active');
             });
@@ -1548,32 +1870,25 @@
             const completed = tasks.filter(t => t.completed).length;
             const pending = total - completed;
             
-            // Count overdue tasks (due date before today and not completed)
             const today = new Date().toISOString().split('T')[0];
             const overdue = tasks.filter(t => !t.completed && t.dueDate < today).length;
-            
-            // Count today's tasks
             const todayTasks = tasks.filter(t => t.dueDate === today).length;
             
-            // Update stat cards
             document.getElementById("totalTasks").innerText = total;
             document.getElementById("completedTasks").innerText = completed;
             document.getElementById("pendingTasks").innerText = pending;
             document.getElementById("overdueTasks").innerText = overdue;
             
-            // Update badges
             document.getElementById("totalTasksBadge").innerText = total;
             document.getElementById("todayTasksBadge").innerText = todayTasks;
             document.getElementById("notificationBadge").innerText = overdue;
             
-            // Update progress
             const progressPercentage = total === 0 ? 0 : Math.round((completed / total) * 100);
             document.getElementById("progressPercentage").innerText = progressPercentage + "%";
             document.getElementById("progressFill").style.width = progressPercentage + "%";
             document.getElementById("progressText").innerText = `${completed}/${total} tasks completed`;
             document.getElementById("userProgress").innerText = progressPercentage + "%";
             
-            // Update task count in header
             document.getElementById("taskCount").innerText = `(${total} tasks)`;
         }
 
@@ -1584,7 +1899,6 @@
             const tasksToRender = filteredTasks || tasks;
             
             if (tasksToRender.length === 0) {
-                // Show empty state
                 taskList.innerHTML = `
                     <div class="empty-state">
                         <i class="fas fa-clipboard-list"></i>
@@ -1603,7 +1917,6 @@
             });
         }
 
-        // Create task element
         function createTaskElement(task) {
             const today = new Date().toISOString().split('T')[0];
             const isOverdue = !task.completed && task.dueDate < today;
@@ -1657,7 +1970,6 @@
 
         // ==================== TASK OPERATIONS ====================
         
-        // Add new task with priority and date
         function addTask() {
             const input = document.getElementById('taskInput');
             const title = input.value.trim();
@@ -1684,7 +1996,6 @@
             saveTasks();
             input.value = '';
             
-            // Reset to tomorrow's date
             const tomorrow = new Date();
             tomorrow.setDate(tomorrow.getDate() + 1);
             document.getElementById('taskDueDate').value = tomorrow.toISOString().split('T')[0];
@@ -1692,7 +2003,6 @@
             showNotification('Task added successfully! 🎉', 'success');
         }
 
-        // Quick add task with category
         function quickAddTask(category) {
             let priority = 'medium';
             let title = '';
@@ -1737,7 +2047,6 @@
             }
         }
 
-        // Toggle task completion
         function toggleTask(taskId) {
             const task = tasks.find(t => t.id === taskId);
             if (task) {
@@ -1747,7 +2056,6 @@
             }
         }
 
-        // Delete task
         function deleteTask(taskId) {
             if (confirm('Are you sure you want to delete this task?')) {
                 tasks = tasks.filter(t => t.id !== taskId);
@@ -1756,7 +2064,6 @@
             }
         }
 
-        // Edit task
         function editTask(taskId) {
             const task = tasks.find(t => t.id === taskId);
             if (task) {
@@ -1769,7 +2076,6 @@
             }
         }
 
-        // Duplicate task
         function duplicateTask(taskId) {
             const task = tasks.find(t => t.id === taskId);
             if (task) {
@@ -1786,7 +2092,6 @@
             }
         }
 
-        // Clear completed tasks
         function clearCompleted() {
             if (confirm('Are you sure you want to clear all completed tasks?')) {
                 tasks = tasks.filter(t => !t.completed);
@@ -1798,11 +2103,12 @@
         // ==================== FILTER AND SORT ====================
         
         let currentFilter = 'all';
+        let sortAscending = true;
+        let sortBy = 'date';
         
         function filterTasks(filter) {
             currentFilter = filter;
             
-            // Update active button
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if (btn.textContent.toLowerCase().includes(filter) || 
@@ -1842,9 +2148,6 @@
             showNotification(`Showing: ${filter} tasks`, 'info');
         }
 
-        let sortAscending = true;
-        let sortBy = 'date'; // date, priority, title
-        
         function sortTasks() {
             sortAscending = !sortAscending;
             const sortIcon = document.getElementById('sortIcon');
@@ -1867,7 +2170,6 @@
                 }
             });
             
-            // Cycle through sort options
             if (!sortAscending) {
                 if (sortBy === 'date') sortBy = 'priority';
                 else if (sortBy === 'priority') sortBy = 'title';
@@ -1897,17 +2199,15 @@
             }
         });
 
-        // ==================== EXPORT FUNCTIONALITY ====================
+        // ==================== EXPORT FUNCTIONS ====================
         
         function openExportModal() {
-            const modal = document.getElementById('exportModal');
-            modal.classList.add('active');
+            document.getElementById('exportModal').classList.add('active');
             
-            // Update preview
             const previewList = document.getElementById('exportPreview');
             previewList.innerHTML = '';
             
-            const previewTasks = tasks.slice(0, 5); // Show first 5 tasks
+            const previewTasks = tasks.slice(0, 5);
             previewTasks.forEach(task => {
                 const previewItem = document.createElement('div');
                 previewItem.className = 'preview-item';
@@ -1936,7 +2236,6 @@
                 return;
             }
             
-            // Prepare CSV data
             const headers = ['Title', 'Priority', 'Category', 'Due Date', 'Status', 'Tags', 'Created At'];
             const rows = tasks.map(task => [
                 task.title,
@@ -1948,13 +2247,11 @@
                 new Date(task.createdAt).toLocaleDateString()
             ]);
             
-            // Create CSV content
             const csvContent = [
                 headers.join(','),
                 ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
             ].join('\n');
             
-            // Download CSV
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             const url = URL.createObjectURL(blob);
@@ -1975,19 +2272,15 @@
                 return;
             }
             
-            // Create PDF using jsPDF
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             
-            // Add title
             doc.setFontSize(20);
             doc.text(`FlowTask - ${currentUser}'s Tasks`, 20, 20);
             
-            // Add date
             doc.setFontSize(12);
             doc.text(`Exported on: ${new Date().toLocaleDateString()}`, 20, 30);
             
-            // Add summary
             const total = tasks.length;
             const completed = tasks.filter(t => t.completed).length;
             const pending = total - completed;
@@ -1999,7 +2292,6 @@
             doc.text(`Completed: ${completed}`, 30, 65);
             doc.text(`Pending: ${pending}`, 30, 75);
             
-            // Add tasks
             let yPosition = 95;
             doc.setFontSize(14);
             doc.text('Tasks:', 20, yPosition);
@@ -2022,39 +2314,10 @@
                 yPosition += 10;
             });
             
-            // Save PDF
             doc.save(`flowtask_${currentUser}_${new Date().toISOString().split('T')[0]}.pdf`);
             
             closeExportModal();
             showNotification('Tasks exported to PDF successfully!', 'success');
-        }
-
-        // ==================== NOTIFICATION ====================
-        
-        function showNotification(message, type) {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: ${type === 'success' ? '#03e9f4' : type === 'warning' ? '#f56565' : '#4299e1'};
-                color: ${type === 'success' ? '#050801' : 'white'};
-                padding: 15px 25px;
-                border-radius: 10px;
-                box-shadow: 0 0 20px ${type === 'success' ? '#03e9f4' : 'rgba(0,0,0,0.2)'};
-                z-index: 1000;
-                animation: slideInRight 0.3s ease;
-                font-weight: 600;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-            `;
-            notification.textContent = message;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
         }
 
         // ==================== UTILITY FUNCTIONS ====================
@@ -2087,43 +2350,62 @@
             showNotification(message, 'info');
         }
         
-        function logoutUser() {
-            if (confirm('Are you sure you want to logout?')) {
-                localStorage.removeItem("flowtask_user");
-                location.reload();
-            }
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#03e9f4' : type === 'warning' ? '#f56565' : '#4299e1'};
+                color: ${type === 'success' ? '#050801' : 'white'};
+                padding: 15px 25px;
+                border-radius: 10px;
+                box-shadow: 0 0 20px ${type === 'success' ? '#03e9f4' : 'rgba(0,0,0,0.2)'};
+                z-index: 1000;
+                animation: slideInRight 0.3s ease;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
         }
 
         // ==================== INITIALIZATION ====================
         
-        // Display current date
         function updateDate() {
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             const today = new Date().toLocaleDateString('en-US', options);
             document.getElementById('currentDate').textContent = today;
             
-            // Set default due date to tomorrow
             const tomorrow = new Date();
             tomorrow.setDate(tomorrow.getDate() + 1);
             document.getElementById('taskDueDate').value = tomorrow.toISOString().split('T')[0];
         }
 
-        // Handle Enter key
         document.getElementById('taskInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 addTask();
             }
         });
 
-        // Click outside modal to close
         window.addEventListener('click', function(e) {
-            const modal = document.getElementById('exportModal');
-            if (e.target === modal) {
+            const userModal = document.getElementById('userModal');
+            const exportModal = document.getElementById('exportModal');
+            
+            if (e.target === userModal) {
+                closeUserModal();
+            }
+            if (e.target === exportModal) {
                 closeExportModal();
             }
         });
 
-        // Add animation keyframes
         const style = document.createElement('style');
         style.textContent = `
             @keyframes slideInRight {
@@ -2140,6 +2422,7 @@
         document.head.appendChild(style);
 
         // Initialize everything
+        updateUserUI();
         updateDate();
         updateStats();
         renderTasks();
