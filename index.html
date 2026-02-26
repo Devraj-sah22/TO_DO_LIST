@@ -27,6 +27,12 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            transition: background 0.3s ease;
+        }
+
+        /* Dark Mode Body */
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
         }
 
         /* Main Container */
@@ -41,6 +47,13 @@
             display: flex;
             overflow: hidden;
             animation: slideUp 0.6s ease-out;
+            transition: all 0.3s ease;
+        }
+
+        /* Dark Mode Container */
+        .dark-mode .app-container {
+            background: rgba(26, 32, 44, 0.95);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
         }
 
         @keyframes slideUp {
@@ -62,6 +75,13 @@
             border-right: 1px solid rgba(0, 0, 0, 0.05);
             display: flex;
             flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        /* Dark Mode Sidebar */
+        .dark-mode .sidebar {
+            background: linear-gradient(180deg, #2d3748 0%, #1a202c 100%);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .logo {
@@ -103,6 +123,11 @@
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
+        }
+
+        /* Dark Mode Nav Item */
+        .dark-mode .nav-item {
+            color: #a0aec0;
         }
 
         .nav-item:hover {
@@ -152,6 +177,12 @@
             position: relative;
         }
 
+        /* Dark Mode User Profile */
+        .dark-mode .user-profile {
+            background: #2d3748;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
         .user-profile:hover {
             transform: translateY(-2px);
             box-shadow: 0 0 20px #03e9f4;
@@ -176,9 +207,19 @@
             color: #2d3748;
         }
 
+        /* Dark Mode User Info */
+        .dark-mode .user-info h4 {
+            color: white;
+        }
+
         .user-info p {
             font-size: 12px;
             color: #718096;
+        }
+
+        /* Dark Mode User Info Text */
+        .dark-mode .user-info p {
+            color: #a0aec0;
         }
 
         .user-badge {
@@ -204,6 +245,12 @@
             padding: 30px;
             overflow-y: auto;
             background: white;
+            transition: background 0.3s ease;
+        }
+
+        /* Dark Mode Main Content */
+        .dark-mode .main-content {
+            background: #1a202c;
         }
 
         /* Header */
@@ -220,12 +267,22 @@
             margin-bottom: 8px;
         }
 
+        /* Dark Mode Header */
+        .dark-mode .header-left h1 {
+            color: white;
+        }
+
         .date {
             color: #718096;
             font-size: 14px;
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+
+        /* Dark Mode Date */
+        .dark-mode .date {
+            color: #a0aec0;
         }
 
         .header-right {
@@ -242,6 +299,12 @@
             border-radius: 30px;
             border: 1px solid #e2e8f0;
             transition: all 0.3s ease;
+        }
+
+        /* Dark Mode Search Box */
+        .dark-mode .search-box {
+            background: #2d3748;
+            border-color: #4a5568;
         }
 
         .search-box:focus-within {
@@ -262,6 +325,15 @@
             width: 200px;
         }
 
+        /* Dark Mode Search Input */
+        .dark-mode .search-box input {
+            color: white;
+        }
+
+        .dark-mode .search-box input::placeholder {
+            color: #a0aec0;
+        }
+
         .notification-btn {
             position: relative;
             width: 45px;
@@ -273,6 +345,13 @@
             justify-content: center;
             cursor: pointer;
             border: 1px solid #e2e8f0;
+        }
+
+        /* Dark Mode Notification Button */
+        .dark-mode .notification-btn {
+            background: #2d3748;
+            border-color: #4a5568;
+            color: white;
         }
 
         .notification-badge {
@@ -289,6 +368,32 @@
             justify-content: center;
             font-size: 11px;
             font-weight: 600;
+        }
+
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            width: 45px;
+            height: 45px;
+            background: #f7fafc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        /* Dark Mode Toggle in Dark Mode */
+        .dark-mode .dark-mode-toggle {
+            background: #2d3748;
+            border-color: #4a5568;
+            color: #fbbf24;
+        }
+
+        .dark-mode-toggle:hover {
+            transform: rotate(15deg);
+            box-shadow: 0 0 20px #03e9f4;
         }
 
         /* Profile Switcher Modal */
@@ -321,6 +426,12 @@
             overflow-y: auto;
         }
 
+        /* Dark Mode Modal */
+        .dark-mode .modal-content {
+            background: #2d3748;
+            color: white;
+        }
+
         @keyframes modalSlideIn {
             from {
                 transform: translateY(-50px);
@@ -344,6 +455,11 @@
             font-size: 24px;
         }
 
+        /* Dark Mode Modal Header */
+        .dark-mode .modal-header h2 {
+            color: white;
+        }
+
         .close-modal {
             width: 40px;
             height: 40px;
@@ -358,6 +474,13 @@
             transition: all 0.3s ease;
         }
 
+        /* Dark Mode Close Button */
+        .dark-mode .close-modal {
+            background: #4a5568;
+            border-color: #718096;
+            color: white;
+        }
+
         .close-modal:hover {
             background: #f56565;
             color: white;
@@ -367,6 +490,15 @@
         /* Profile Switcher */
         .profile-switcher {
             margin-bottom: 30px;
+        }
+
+        .profile-switcher h3 {
+            color: #2d3748;
+        }
+
+        /* Dark Mode Profile Switcher */
+        .dark-mode .profile-switcher h3 {
+            color: white;
         }
 
         .profile-list {
@@ -386,6 +518,12 @@
             border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
+        }
+
+        /* Dark Mode Profile Item */
+        .dark-mode .profile-item {
+            background: #4a5568;
+            border-color: #718096;
         }
 
         .profile-item:hover {
@@ -421,9 +559,19 @@
             margin-bottom: 4px;
         }
 
+        /* Dark Mode Profile Details */
+        .dark-mode .profile-details h4 {
+            color: white;
+        }
+
         .profile-details p {
             color: #718096;
             font-size: 12px;
+        }
+
+        /* Dark Mode Profile Details Text */
+        .dark-mode .profile-details p {
+            color: #a0aec0;
         }
 
         .profile-check {
@@ -452,6 +600,13 @@
             margin-top: 15px;
         }
 
+        /* Dark Mode Add Profile Button */
+        .dark-mode .add-profile-btn {
+            background: #4a5568;
+            border-color: #718096;
+            color: white;
+        }
+
         .add-profile-btn:hover {
             border-color: #03e9f4;
             background: white;
@@ -474,15 +629,30 @@
             font-weight: 500;
         }
 
+        /* Dark Mode Add Profile Button Text */
+        .dark-mode .add-profile-btn span {
+            color: white;
+        }
+
         /* User Settings */
         .user-settings {
             border-top: 1px solid #e2e8f0;
             padding-top: 30px;
         }
 
+        /* Dark Mode User Settings */
+        .dark-mode .user-settings {
+            border-top-color: #4a5568;
+        }
+
         .user-settings h3 {
             color: #2d3748;
             margin-bottom: 20px;
+        }
+
+        /* Dark Mode User Settings Heading */
+        .dark-mode .user-settings h3 {
+            color: white;
         }
 
         .settings-form {
@@ -503,6 +673,11 @@
             font-weight: 500;
         }
 
+        /* Dark Mode Form Label */
+        .dark-mode .form-group label {
+            color: #a0aec0;
+        }
+
         .form-group input {
             padding: 12px 15px;
             border: 1px solid #e2e8f0;
@@ -510,6 +685,13 @@
             outline: none;
             font-size: 14px;
             transition: all 0.3s ease;
+        }
+
+        /* Dark Mode Form Input */
+        .dark-mode .form-group input {
+            background: #4a5568;
+            border-color: #718096;
+            color: white;
         }
 
         .form-group input:focus {
@@ -553,6 +735,13 @@
             border: 1px solid #fc8181;
         }
 
+        /* Dark Mode Danger Button */
+        .dark-mode .settings-btn.danger {
+            background: #742a2a;
+            color: #feb2b2;
+            border-color: #9b2c2c;
+        }
+
         .settings-btn.danger:hover {
             background: #c53030;
             color: white;
@@ -562,6 +751,13 @@
             background: #feebc8;
             color: #dd6b20;
             border: 1px solid #f6ad55;
+        }
+
+        /* Dark Mode Warning Button */
+        .dark-mode .settings-btn.warning {
+            background: #744210;
+            color: #fbd38d;
+            border-color: #975a16;
         }
 
         .settings-btn.warning:hover {
@@ -583,6 +779,12 @@
             border-radius: 24px;
             border: 1px solid #e2e8f0;
             transition: transform 0.3s ease;
+        }
+
+        /* Dark Mode Stat Card */
+        .dark-mode .stat-card {
+            background: #2d3748;
+            border-color: #4a5568;
         }
 
         .stat-card:hover {
@@ -609,9 +811,19 @@
             margin-bottom: 4px;
         }
 
+        /* Dark Mode Stat Info */
+        .dark-mode .stat-info h3 {
+            color: white;
+        }
+
         .stat-info p {
             color: #718096;
             font-size: 14px;
+        }
+
+        /* Dark Mode Stat Info Text */
+        .dark-mode .stat-info p {
+            color: #a0aec0;
         }
 
         /* Progress Bar */
@@ -623,6 +835,12 @@
             border: 1px solid #e2e8f0;
         }
 
+        /* Dark Mode Progress Section */
+        .dark-mode .progress-section {
+            background: #2d3748;
+            border-color: #4a5568;
+        }
+
         .progress-header {
             display: flex;
             justify-content: space-between;
@@ -632,6 +850,11 @@
         .progress-title {
             font-weight: 600;
             color: #2d3748;
+        }
+
+        /* Dark Mode Progress Title */
+        .dark-mode .progress-title {
+            color: white;
         }
 
         .progress-percentage {
@@ -647,12 +870,56 @@
             overflow: hidden;
         }
 
+        /* Dark Mode Progress Bar */
+        .dark-mode .progress-bar {
+            background: #4a5568;
+        }
+
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, #667eea, #764ba2);
             border-radius: 10px;
             width: 0%;
             transition: width 0.5s ease;
+        }
+
+        /* Developer Credit */
+        .developer-credit {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea10, #764ba210);
+            border-radius: 50px;
+            font-size: 14px;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Dark Mode Developer Credit */
+        .dark-mode .developer-credit {
+            background: #2d3748;
+            border-color: #4a5568;
+        }
+
+        .developer-credit a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .developer-credit a:hover {
+            color: #03e9f4;
+            text-decoration: underline;
+        }
+
+        .developer-credit i {
+            color: #f56565;
+            animation: heartbeat 1.5s ease infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
 
         /* Neon Buttons */
@@ -800,6 +1067,12 @@
             overflow: hidden;
         }
 
+        /* Dark Mode Task Input */
+        .dark-mode .task-input-container {
+            background: #2d3748;
+            border-color: #4a5568;
+        }
+
         .task-input-container:focus-within {
             border-color: #03e9f4;
             box-shadow: 0 0 10px #03e9f4;
@@ -820,6 +1093,13 @@
             outline: none;
             font-size: 16px;
             transition: all 0.3s ease;
+        }
+
+        /* Dark Mode Task Input */
+        .dark-mode .task-input-wrapper input {
+            background: #4a5568;
+            border-color: #718096;
+            color: white;
         }
 
         .task-input-wrapper input:focus {
@@ -873,6 +1153,13 @@
             position: relative;
         }
 
+        /* Dark Mode Task Option */
+        .dark-mode .task-option {
+            background: #4a5568;
+            border-color: #718096;
+            color: #a0aec0;
+        }
+
         .task-option:hover {
             border-color: #03e9f4;
             box-shadow: 0 0 10px #03e9f4;
@@ -907,6 +1194,13 @@
             color: #718096;
         }
 
+        /* Dark Mode Date Picker */
+        .dark-mode .date-picker {
+            background: #4a5568;
+            border-color: #718096;
+            color: white;
+        }
+
         .date-picker input {
             border: none;
             outline: none;
@@ -914,6 +1208,11 @@
             color: #4a5568;
             font-family: 'Inter', sans-serif;
             flex: 1;
+        }
+
+        /* Dark Mode Date Picker Input */
+        .dark-mode .date-picker input {
+            color: white;
         }
 
         .date-picker i {
@@ -939,6 +1238,13 @@
             font-size: 14px;
             position: relative;
             overflow: hidden;
+        }
+
+        /* Dark Mode Filter Button */
+        .dark-mode .filter-btn {
+            background: #4a5568;
+            border-color: #718096;
+            color: #a0aec0;
         }
 
         .filter-btn:hover {
@@ -968,6 +1274,11 @@
             font-size: 20px;
         }
 
+        /* Dark Mode Tasks Header */
+        .dark-mode .tasks-header h2 {
+            color: white;
+        }
+
         .sort-options {
             display: flex;
             gap: 10px;
@@ -978,6 +1289,13 @@
             padding: 8px 15px;
             border-radius: 30px;
             border: 1px solid #e2e8f0;
+        }
+
+        /* Dark Mode Sort Options */
+        .dark-mode .sort-options {
+            background: #4a5568;
+            border-color: #718096;
+            color: white;
         }
 
         .sort-options:hover {
@@ -1005,6 +1323,12 @@
             animation: slideIn 0.5s ease;
             position: relative;
             overflow: hidden;
+        }
+
+        /* Dark Mode Task Item */
+        .dark-mode .task-item {
+            background: #2d3748;
+            border-color: #4a5568;
         }
 
         @keyframes slideIn {
@@ -1036,6 +1360,11 @@
             transition: all 0.3s ease;
         }
 
+        /* Dark Mode Task Checkbox */
+        .dark-mode .task-checkbox {
+            border-color: #718096;
+        }
+
         .task-checkbox.completed {
             background: linear-gradient(135deg, #667eea, #764ba2);
             border-color: transparent;
@@ -1053,6 +1382,11 @@
             margin-bottom: 5px;
         }
 
+        /* Dark Mode Task Title */
+        .dark-mode .task-title {
+            color: white;
+        }
+
         .task-title.completed {
             text-decoration: line-through;
             color: #a0aec0;
@@ -1066,6 +1400,11 @@
             flex-wrap: wrap;
         }
 
+        /* Dark Mode Task Meta */
+        .dark-mode .task-meta {
+            color: #a0aec0;
+        }
+
         .task-meta span {
             display: flex;
             align-items: center;
@@ -1075,9 +1414,21 @@
             background: white;
         }
 
+        /* Dark Mode Task Meta Spans */
+        .dark-mode .task-meta span {
+            background: #4a5568;
+            color: white;
+        }
+
         .task-meta .overdue {
             background: #fed7d7;
             color: #c53030;
+        }
+
+        /* Dark Mode Overdue */
+        .dark-mode .task-meta .overdue {
+            background: #742a2a;
+            color: #feb2b2;
         }
 
         .task-actions {
@@ -1094,6 +1445,13 @@
             color: #718096;
             cursor: pointer;
             transition: all 0.3s ease;
+        }
+
+        /* Dark Mode Task Action Button */
+        .dark-mode .task-action-btn {
+            background: #4a5568;
+            border-color: #718096;
+            color: white;
         }
 
         .task-action-btn:hover {
@@ -1121,6 +1479,12 @@
             transition: all 0.3s ease;
         }
 
+        /* Dark Mode Tag */
+        .dark-mode .tag {
+            background: #718096;
+            color: white;
+        }
+
         .tag:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 10px rgba(0,0,0,0.1);
@@ -1131,14 +1495,32 @@
             color: #dd6b20;
         }
 
+        /* Dark Mode Work Tag */
+        .dark-mode .tag.work {
+            background: #975a16;
+            color: #fbd38d;
+        }
+
         .tag.personal {
             background: #c6f6d5;
             color: #2f855a;
         }
 
+        /* Dark Mode Personal Tag */
+        .dark-mode .tag.personal {
+            background: #22543d;
+            color: #9ae6b4;
+        }
+
         .tag.urgent {
             background: #fed7d7;
             color: #c53030;
+        }
+
+        /* Dark Mode Urgent Tag */
+        .dark-mode .tag.urgent {
+            background: #9b2c2c;
+            color: #feb2b2;
         }
 
         .tag.high {
@@ -1166,6 +1548,11 @@
             border-radius: 20px;
         }
 
+        /* Dark Mode Quick Actions */
+        .dark-mode .quick-actions {
+            background: #2d3748;
+        }
+
         .quick-action {
             flex: 1;
             padding: 12px;
@@ -1181,6 +1568,13 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+        }
+
+        /* Dark Mode Quick Action */
+        .dark-mode .quick-action {
+            background: #4a5568;
+            border-color: #718096;
+            color: white;
         }
 
         .quick-action:hover {
@@ -1200,10 +1594,22 @@
             border: 2px dashed #cbd5e0;
         }
 
+        /* Dark Mode Empty State */
+        .dark-mode .empty-state {
+            background: #2d3748;
+            border-color: #4a5568;
+            color: white;
+        }
+
         .empty-state i {
             font-size: 50px;
             color: #a0aec0;
             margin-bottom: 20px;
+        }
+
+        /* Dark Mode Empty State Icon */
+        .dark-mode .empty-state i {
+            color: #718096;
         }
 
         .empty-state h3 {
@@ -1211,8 +1617,18 @@
             margin-bottom: 10px;
         }
 
+        /* Dark Mode Empty State Heading */
+        .dark-mode .empty-state h3 {
+            color: white;
+        }
+
         .empty-state p {
             color: #718096;
+        }
+
+        /* Dark Mode Empty State Text */
+        .dark-mode .empty-state p {
+            color: #a0aec0;
         }
 
         /* Scrollbar */
@@ -1224,9 +1640,19 @@
             background: #f1f5f9;
         }
 
+        /* Dark Mode Scrollbar Track */
+        .dark-mode ::-webkit-scrollbar-track {
+            background: #2d3748;
+        }
+
         ::-webkit-scrollbar-thumb {
             background: #cbd5e0;
             border-radius: 10px;
+        }
+
+        /* Dark Mode Scrollbar Thumb */
+        .dark-mode ::-webkit-scrollbar-thumb {
+            background: #718096;
         }
 
         ::-webkit-scrollbar-thumb:hover {
@@ -1302,12 +1728,23 @@
             border: 1px solid #e2e8f0;
         }
 
+        /* Dark Mode Setting Group */
+        .dark-mode .setting-group {
+            background: #4a5568;
+            border-color: #718096;
+        }
+
         .setting-group h3 {
             color: #2d3748;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        /* Dark Mode Setting Group Heading */
+        .dark-mode .setting-group h3 {
+            color: white;
         }
 
         .setting-group h3 i {
@@ -1320,6 +1757,11 @@
             justify-content: space-between;
             padding: 12px 0;
             border-bottom: 1px solid #e2e8f0;
+        }
+
+        /* Dark Mode Setting Item */
+        .dark-mode .setting-item {
+            border-bottom-color: #718096;
         }
 
         .setting-item:last-child {
@@ -1336,9 +1778,19 @@
             margin-bottom: 4px;
         }
 
+        /* Dark Mode Setting Info Heading */
+        .dark-mode .setting-info h4 {
+            color: white;
+        }
+
         .setting-info p {
             color: #718096;
             font-size: 12px;
+        }
+
+        /* Dark Mode Setting Info Text */
+        .dark-mode .setting-info p {
+            color: #a0aec0;
         }
 
         .setting-control {
@@ -1402,6 +1854,14 @@
             background: white;
         }
 
+        /* Dark Mode Select/Input */
+        .dark-mode .time-select,
+        .dark-mode .email-input {
+            background: #718096;
+            border-color: #a0aec0;
+            color: white;
+        }
+
         .time-select:focus, .email-input:focus {
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
@@ -1424,6 +1884,13 @@
             transition: all 0.3s ease;
             font-size: 12px;
             font-weight: 500;
+        }
+
+        /* Dark Mode Snooze Button */
+        .dark-mode .snooze-btn {
+            background: #718096;
+            border-color: #a0aec0;
+            color: white;
         }
 
         .snooze-btn:hover {
@@ -1559,6 +2026,9 @@
                     <div class="search-box">
                         <i class="fas fa-search"></i>
                         <input type="text" id="searchInput" placeholder="Search tasks...">
+                    </div>
+                    <div class="dark-mode-toggle" onclick="toggleDarkMode()" id="darkModeToggle">
+                        <i class="fas fa-moon"></i>
                     </div>
                     <div class="notification-btn" onclick="openNotificationSettings()">
                         <i class="far fa-bell"></i>
@@ -1736,6 +2206,12 @@
                     <i class="fas fa-download"></i>
                     <span>Export Tasks</span>
                 </div>
+            </div>
+
+            <!-- Developer Credit -->
+            <div class="developer-credit">
+                <i class="fas fa-code"></i> Developed with <i class="fas fa-heart"></i> by 
+                <a href="https://sahdevraj.com.np/" target="_blank">Devraj Sah</a>
             </div>
         </div>
     </div>
@@ -2110,6 +2586,32 @@
     </button>
 
     <script>
+        // ==================== DARK MODE ====================
+        
+        // Check for saved dark mode preference
+        let darkMode = localStorage.getItem('flowtask_dark_mode') === 'true';
+        
+        // Apply dark mode on load
+        if (darkMode) {
+            document.body.classList.add('dark-mode');
+            document.getElementById('darkModeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        
+        function toggleDarkMode() {
+            darkMode = !darkMode;
+            localStorage.setItem('flowtask_dark_mode', darkMode);
+            
+            if (darkMode) {
+                document.body.classList.add('dark-mode');
+                document.getElementById('darkModeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                document.body.classList.remove('dark-mode');
+                document.getElementById('darkModeToggle').innerHTML = '<i class="fas fa-moon"></i>';
+            }
+            
+            showNotification(darkMode ? '🌙 Dark mode enabled' : '☀️ Light mode enabled', 'info');
+        }
+
         // ==================== USER MANAGEMENT ====================
         
         // Get all users from localStorage
